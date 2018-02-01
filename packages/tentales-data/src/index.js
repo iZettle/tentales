@@ -1,7 +1,7 @@
-function data(/* dataConfig, tentales */) {
-  console.log("[data] Up")
+function data(/* dataConfig */ _, /* tentales */ { log }) {
+  log("Up")
   return async () => {
-    console.log("[data] Got request")
+    log("Got request")
     return { databaseResult: "boll" }
   }
 }

@@ -1,11 +1,18 @@
 const Koa = require("koa")
 const fetch = require("node-fetch")
+const logger = require("./utils/logger")
 
 module.exports = function tenTales(config) {
   const server = new Koa()
   const services = {}
 
   Object.keys(config.services).forEach(serviceName => {
+    /**
+     * Logger
+     */
+    const log = logger.logger(serviceName)
+    const ttLog = logger.logger(`tt -> ${serviceName}`)
+
     /**
      * Access services
      */
@@ -15,11 +22,7 @@ module.exports = function tenTales(config) {
         serviceConfig.host === "localhost"
           ? `${serviceConfig.host}:${config.port}`
           : serviceConfig.host
-      console.log(
-        `[tt -> ${serviceName}] Calling service on http://${host}${
-          serviceConfig.path
-        }`
-      )
+      ttLog(`Calling service on http://${host}${serviceConfig.path}`)
       const response = await fetch(`http://${host}${serviceConfig.path}`, {
         type,
         payload
@@ -34,18 +37,13 @@ module.exports = function tenTales(config) {
       return
     }
 
-    console.log(`[tt -> ${serviceName}]`, "Setting up service on local server")
+    ttLog("Setting up service on local server")
     // eslint-disable-next-line global-require, import/no-dynamic-require
     const setupService = require(`tentales-${serviceName}`)
-    const service = setupService(serviceConfig, { services })
-
+    const service = setupService(serviceConfig, { services, log })
     server.use(async (ctx, next) => {
       if (ctx.request.URL.pathname === `${serviceConfig.path}`) {
-        console.log(`[tt -> ${serviceName}]`, "Middleware called")
         ctx.body = await service(ctx.request.body)
-
-        console.log(`[tt -> ${serviceName}]`, "Body set to:")
-        console.log(ctx.body)
       } else {
         await next()
       }
@@ -60,9 +58,9 @@ module.exports = function tenTales(config) {
     .join(", ")
 
   server.listen(config.port, () => {
-    console.log("")
-    console.log("Running services:", localServices)
-    console.log("Ten Tales is up on port", config.port)
-    console.log("")
+    logger.console("")
+    logger.console("Running services:", localServices)
+    logger.console("Ten Tales is up on port", config.port)
+    logger.console("")
   })
 }

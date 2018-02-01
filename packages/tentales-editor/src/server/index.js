@@ -1,7 +1,7 @@
-function editor(/* editorConfig, tentales */) {
-  console.log("[editor] Up")
+function editor(/* dataConfig */ _, /* tentales */ { log }) {
+  log("Up")
   return async () => {
-    console.log("[editor] Got request")
+    log("Got request")
     return { editor: "editor" }
   }
 }

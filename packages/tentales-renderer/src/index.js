@@ -1,6 +1,7 @@
-function renderer(rendererConfig, tentales) {
-  console.log("[renderer] Up")
+function renderer(/* dataConfig */ _, /* tentales */ { log, services }) {
+  log("Up")
   return async () => {
+    log("Got request")
     // const components = resolveComponents(tentales.reactComponentsDirectory)
 
     // return ReactDOM.renderToString(
@@ -11,7 +12,7 @@ function renderer(rendererConfig, tentales) {
     //   />
     // )
 
-    const data = await tentales.services.data({ type: "getPage", payload: "" })
+    const data = await services.data({ type: "getPage", payload: "" })
 
     return `<html>${JSON.stringify(data)}</html>`
   }
