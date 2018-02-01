@@ -4,5 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
-  "workspaces": "packages/*"
+  "workspaces": [
+    "packages/tentales-common",
+    "packages/tentales-data",
+    "packages/tentales-data-plugin-persistance-postgres",
+    "packages/tentales-editor",
+    "packages/tentales-renderer",
+    "packages/tentales-renderer-plugin-cache-in-memory",
+    "packages/tentales-renderer-plugin-cache-redis",
+    "packages/tentales-renderer-plugin-cloudfront",
+    "packages/tentales-renderer-plugin-s3",
+    "packages/tentales-router",
+    "packages/tentales-router-plugin-https-only"
+  ]
 }
