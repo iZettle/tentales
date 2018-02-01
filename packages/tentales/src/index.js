@@ -3,11 +3,16 @@ const bodyParser = require("koa-bodyparser")
 const fetch = require("node-fetch")
 const logger = require("./utils/logger")
 
+const middlewareRender = require("./middlewares/render")
+
 module.exports = function tenTales(config) {
   const server = new Koa()
   const services = {}
 
   server.use(bodyParser())
+  server.use(
+    middlewareRender({ services, log: logger.logger("renderer middleware") })
+  )
 
   Object.keys(config.services).forEach(serviceName => {
     /**
@@ -26,6 +31,7 @@ module.exports = function tenTales(config) {
           ? `http://localhost:${config.port}`
           : serviceConfig.host
       ttLog(`Calling service on ${host}${serviceConfig.path}`)
+      // TODO, add timeout
       const response = await fetch(`${host}${serviceConfig.path}`, {
         method: "POST",
         headers: {
@@ -57,6 +63,11 @@ module.exports = function tenTales(config) {
         await next()
       }
     })
+  })
+
+  server.use(async (ctx, next) => {
+    ctx.body = "Nothing was found"
+    await next()
   })
 
   /**
