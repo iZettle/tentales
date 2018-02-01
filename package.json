@@ -6,7 +6,21 @@
   "private": true,
   "scripts": {
     "dev:simple": "nodemon -w ./package -x node ./packages/tentales-example-simple/src/index.js",
-    "dev:advanced": "nodemon -w ./package -x node ./packages/tentales-example-advanced/src/index.js"
+    "dev:advanced": "nodemon -w ./package -x node ./packages/tentales-example-advanced/src/index.js",
+    "lint": "eslint packages",
+    "format": "prettier --write 'packages/**/*.js'",
+    "precommit": "lint-staged"
+  },
+  "prettier": {
+    "semi": false,
+    "jsxBracketSameLine": true
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix --cache",
+      "git add"
+    ]
   },
   "workspaces": [
     "packages/tentales-common",
@@ -21,7 +35,19 @@
     "packages/tentales-router",
     "packages/tentales-router-plugin-https-only"
   ],
-  "dependencies": {
-    "nodemon": "^1.14.11"
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "husky": "^0.14.3",
+    "jest": "^22.1.4",
+    "lint-staged": "^6.1.0",
+    "nodemon": "^1.14.11",
+    "prettier": "^1.10.2"
   }
 }

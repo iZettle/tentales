@@ -1,0 +1,40 @@
+{
+  "globals": {},
+  "extends": [
+    "airbnb",
+    "prettier",
+    "prettier/react"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true,
+      "modules": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": false,
+    "jasmine": false,
+    "jest/globals": true
+  },
+  "plugins": [
+    "react",
+    "jest"
+  ],
+  "rules": {
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
+    "no-unused-vars": [2, { "ignoreRestSiblings": true, "argsIgnorePattern": "_" }],
+    "react/jsx-uses-react": 1,
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-direct-mutation-state": 1,
+    "react/no-multi-comp": 1,
+    "react/no-string-refs": ["warn"],
+    "react/prefer-stateless-function": 1,
+    "semi": [2, "never"]
+  }
+}
