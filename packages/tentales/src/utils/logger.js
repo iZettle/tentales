@@ -1,6 +1,6 @@
 // eslint-disable no-console
 
-function logger(serviceName) {
+function createServiceLogger(serviceName) {
   return (...args) => {
     if (serviceName) {
       console.log(`[${serviceName}]`, ...args)
@@ -11,6 +11,6 @@ function logger(serviceName) {
 }
 
 module.exports = {
-  logger,
-  console: logger()
+  createServiceLogger,
+  plainLog: createServiceLogger()
 }

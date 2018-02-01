@@ -11,15 +11,18 @@ module.exports = function tenTales(config) {
 
   server.use(bodyParser())
   server.use(
-    middlewareRender({ services, log: logger.logger("renderer middleware") })
+    middlewareRender({
+      services,
+      log: logger.createServiceLogger("renderer middleware")
+    })
   )
 
   Object.keys(config.services).forEach(serviceName => {
     /**
      * Logger
      */
-    const log = logger.logger(serviceName)
-    const ttLog = logger.logger(`tt -> ${serviceName}`)
+    const log = logger.createServiceLogger(serviceName)
+    const ttLog = logger.createServiceLogger(`tt -> ${serviceName}`)
 
     /**
      * Access services
@@ -74,8 +77,8 @@ module.exports = function tenTales(config) {
    * Log
    */
   server.listen(config.port, () => {
-    logger.console("")
-    logger.console("Ten Tales is up on port", config.port)
-    logger.console("")
+    logger.plainLog("")
+    logger.plainLog("Ten Tales is up on port", config.port)
+    logger.plainLog("")
   })
 }
