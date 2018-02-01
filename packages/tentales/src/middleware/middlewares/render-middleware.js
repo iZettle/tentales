@@ -1,6 +1,5 @@
-function render({ services, log }) {
-  log("Initiated")
-  return async (ctx, next) => {
+function renderMiddlewareFactory({ services, log }) {
+  return async function renderMiddleware(ctx, next) {
     if (
       ctx.request.URL.pathname.startsWith("/tt/") ||
       ctx.accepts("html", "*/*") !== "html"
@@ -18,4 +17,4 @@ function render({ services, log }) {
   }
 }
 
-module.exports = render
+module.exports = renderMiddlewareFactory

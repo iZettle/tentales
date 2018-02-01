@@ -1,10 +1,10 @@
-// eslint-disable no-console
-
 function createServiceLogger(serviceName) {
   return (...args) => {
     if (serviceName) {
+      // eslint-disable-next-line no-console
       console.log(`[${serviceName}]`, ...args)
     } else {
+      // eslint-disable-next-line no-console
       console.log(...args)
     }
   }
