@@ -19,11 +19,11 @@ module.exports = function tenTales(config) {
     const serviceConfig = config.services[serviceName]
     services[serviceName] = async ({ type, payload }) => {
       const host =
-        serviceConfig.host === "localhost"
-          ? `${serviceConfig.host}:${config.port}`
+        serviceConfig.host === "this"
+          ? `http://localhost:${config.port}`
           : serviceConfig.host
-      ttLog(`Calling service on http://${host}${serviceConfig.path}`)
-      const response = await fetch(`http://${host}${serviceConfig.path}`, {
+      ttLog(`Calling service on ${host}${serviceConfig.path}`)
+      const response = await fetch(`${host}${serviceConfig.path}`, {
         type,
         payload
       })
@@ -33,7 +33,7 @@ module.exports = function tenTales(config) {
     /**
      * Start services on local server
      */
-    if (serviceConfig.host !== "localhost") {
+    if (serviceConfig.host !== "this") {
       return
     }
 
@@ -54,7 +54,7 @@ module.exports = function tenTales(config) {
    * Log
    */
   const localServices = Object.keys(config.services)
-    .filter(serviceName => config.services[serviceName].host === "localhost")
+    .filter(serviceName => config.services[serviceName].host === "this")
     .join(", ")
 
   server.listen(config.port, () => {

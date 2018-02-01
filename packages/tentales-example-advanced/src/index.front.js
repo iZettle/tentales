@@ -8,16 +8,16 @@ tenTales({
   reactComponentsDirectory: path.join(__dirname, "components"),
   services: {
     renderer: {
-      host: "localhost",
+      host: "this",
       path: "/tt/renderer"
       // cache: "s3"
     },
     data: {
-      host: "localhost:4001",
+      host: "http://localhost:4001",
       path: "/tt/data"
     },
     editor: {
-      host: "localhost:4001",
+      host: "http://localhost:4001",
       path: "/tt/editor"
     }
   }
