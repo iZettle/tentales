@@ -1,7 +1,7 @@
 function data(/* dataConfig, tentales */) {
-  console.log("[data] [actual] up")
+  console.log("[data] Up")
   return async () => {
-    console.log("[data] [actual] Got request")
+    console.log("[data] Got request")
     return { databaseResult: "boll" }
   }
 }

@@ -1,7 +1,7 @@
 function editor(/* editorConfig, tentales */) {
-  console.log("[editor] [actual] up")
+  console.log("[editor] Up")
   return async () => {
-    console.log("[editor] [actual] Got request")
+    console.log("[editor] Got request")
     return { editor: "editor" }
   }
 }

@@ -1,5 +1,5 @@
 function renderer(rendererConfig, tentales) {
-  console.log("[renderer] [actual] up")
+  console.log("[renderer] Up")
   return async () => {
     // const components = resolveComponents(tentales.reactComponentsDirectory)
 

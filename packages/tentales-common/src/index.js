@@ -16,7 +16,7 @@ module.exports = function tenTales(config) {
           ? `${serviceConfig.host}:${config.port}`
           : serviceConfig.host
       console.log(
-        `[${serviceName}] Calling service on http://${host}${
+        `[tt -> ${serviceName}] Calling service on http://${host}${
           serviceConfig.path
         }`
       )
@@ -24,7 +24,7 @@ module.exports = function tenTales(config) {
         type,
         payload
       })
-      await response.json()
+      return await response.json()
     }
 
     /**
@@ -34,15 +34,18 @@ module.exports = function tenTales(config) {
       return
     }
 
-    console.log(`[${serviceName}]`, "Setting up service on local server")
+    console.log(`[tt -> ${serviceName}]`, "Setting up service on local server")
     // eslint-disable-next-line global-require, import/no-dynamic-require
     const setupService = require(`tentales-${serviceName}`)
     const service = setupService(serviceConfig, { services })
 
     server.use(async (ctx, next) => {
       if (ctx.request.URL.pathname === `${serviceConfig.path}`) {
-        console.log(`[${serviceName}]`, "Middleware called")
+        console.log(`[tt -> ${serviceName}]`, "Middleware called")
         ctx.body = await service(ctx.request.body)
+
+        console.log(`[tt -> ${serviceName}]`, "Body set to:")
+        console.log(ctx.body)
       } else {
         await next()
       }
