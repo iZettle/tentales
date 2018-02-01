@@ -4,6 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev:simple": "nodemon -w ./package -x node ./packages/tentales-example-simple/src/index.js",
+    "dev:advanced": "nodemon -w ./package -x node ./packages/tentales-example-advanced/src/index.js"
+  },
   "workspaces": [
     "packages/tentales-common",
     "packages/tentales-data",
@@ -16,5 +20,8 @@
     "packages/tentales-renderer-plugin-s3",
     "packages/tentales-router",
     "packages/tentales-router-plugin-https-only"
-  ]
+  ],
+  "dependencies": {
+    "nodemon": "^1.14.11"
+  }
 }
