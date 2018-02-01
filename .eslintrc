@@ -27,6 +27,7 @@
   ],
   "rules": {
     "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
+    "no-console": 0,
     "no-unused-vars": [2, { "ignoreRestSiblings": true, "argsIgnorePattern": "_" }],
     "react/jsx-uses-react": 1,
     "react/no-did-mount-set-state": 1,

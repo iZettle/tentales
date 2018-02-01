@@ -1,21 +1,3 @@
-function router(routerConfig, tentales) {
-  console.log("Router up")
-  return async (ctx, next) => {
-    const page = await tentales.services.data({
-      type: "getPage",
-      payload: ctx.request.URL.pathname
-    })
-    const html = await tentales.services.render({
-      type: "render",
-      payload: page
-    })
-
-    ctx.body = html
-  }
-}
-
-// END SERVICES
-
 const Koa = require("koa")
 const fetch = require("node-fetch")
 
@@ -29,10 +11,20 @@ module.exports = function tenTales(config) {
      */
     const serviceConfig = config.services[serviceName]
     services[serviceName] = async ({ type, payload }) => {
-      const host = serviceConfig.host === "localhost" ? `${serviceConfig.host}:${config.port}` : serviceConfig.host
-      console.log(`[${serviceName}] Calling service on http://${host}${serviceConfig.path}`)
-      const response = await fetch(`http://${host}${serviceConfig.path}`, { type, payload })
-      return await response.json()
+      const host =
+        serviceConfig.host === "localhost"
+          ? `${serviceConfig.host}:${config.port}`
+          : serviceConfig.host
+      console.log(
+        `[${serviceName}] Calling service on http://${host}${
+          serviceConfig.path
+        }`
+      )
+      const response = await fetch(`http://${host}${serviceConfig.path}`, {
+        type,
+        payload
+      })
+      await response.json()
     }
 
     /**
@@ -43,6 +35,7 @@ module.exports = function tenTales(config) {
     }
 
     console.log(`[${serviceName}]`, "Setting up service on local server")
+    // eslint-disable-next-line global-require, import/no-dynamic-require
     const setupService = require(`tentales-${serviceName}`)
     const service = setupService(serviceConfig, { services })
 
