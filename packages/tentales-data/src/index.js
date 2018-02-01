@@ -1,8 +1,12 @@
 function data(/* dataConfig */ _, /* tentales */ { log }) {
   log("Up")
-  return async () => {
+  return async ({ /* type */ __, payload }) => {
     log("Got request")
-    return { databaseResult: "boll" }
+    return {
+      databaseResult: {
+        page: payload
+      }
+    }
   }
 }
 

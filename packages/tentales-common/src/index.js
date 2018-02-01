@@ -1,10 +1,13 @@
 const Koa = require("koa")
+const bodyParser = require("koa-bodyparser")
 const fetch = require("node-fetch")
 const logger = require("./utils/logger")
 
 module.exports = function tenTales(config) {
   const server = new Koa()
   const services = {}
+
+  server.use(bodyParser())
 
   Object.keys(config.services).forEach(serviceName => {
     /**
@@ -24,8 +27,15 @@ module.exports = function tenTales(config) {
           : serviceConfig.host
       ttLog(`Calling service on ${host}${serviceConfig.path}`)
       const response = await fetch(`${host}${serviceConfig.path}`, {
-        type,
-        payload
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          type,
+          payload
+        })
       })
       return await response.json()
     }
@@ -37,7 +47,6 @@ module.exports = function tenTales(config) {
       return
     }
 
-    ttLog("Setting up service on local server")
     // eslint-disable-next-line global-require, import/no-dynamic-require
     const setupService = require(`tentales-${serviceName}`)
     const service = setupService(serviceConfig, { services, log })
@@ -53,13 +62,8 @@ module.exports = function tenTales(config) {
   /**
    * Log
    */
-  const localServices = Object.keys(config.services)
-    .filter(serviceName => config.services[serviceName].host === "this")
-    .join(", ")
-
   server.listen(config.port, () => {
     logger.console("")
-    logger.console("Running services:", localServices)
     logger.console("Ten Tales is up on port", config.port)
     logger.console("")
   })
