@@ -1,6 +1,6 @@
 // TODO: Remove eslint-disable once import of sibling dependency is figured out
 // eslint-disable-next-line import/no-extraneous-dependencies
-const tenTales = require("tentales-common")
+const tenTales = require("tentales")
 const path = require("path")
 
 tenTales({

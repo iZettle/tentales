@@ -24,7 +24,7 @@
     ]
   },
   "workspaces": [
-    "packages/tentales-common",
+    "packages/tentales",
     "packages/tentales-data",
     "packages/tentales-data-plugin-persistance-postgres",
     "packages/tentales-editor",
