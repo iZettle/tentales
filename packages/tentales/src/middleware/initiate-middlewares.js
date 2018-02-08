@@ -23,7 +23,7 @@ function initiateMiddlewares({ middlewares, server, services }) {
   middlewares.forEach(([name, functions]) => {
     if (middlewaresMap.get(name)) {
       log.warn(
-        `Overwriting built in middleware(s) on hook position "${name}", due to your config.`
+        `Overwriting Ten Tales default middleware(s) on hook position "${name}". This might be what you intended.`
       )
     }
     middlewaresMap.set(name, functions)
