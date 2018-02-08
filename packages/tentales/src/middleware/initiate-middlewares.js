@@ -1,7 +1,5 @@
 const createLog = require("tentales-log")
 
-const ttLog = createLog("tt")
-
 const MIDDLEWARE_ORDER = [
   "first",
   "beforeRender",
@@ -20,20 +18,19 @@ const MIDDLEWARE_ORDER = [
 ]
 
 function initiateMiddlewares({ middlewares, server, services }) {
+  const log = createLog("tt")
   const middlewaresMap = new Map()
   middlewares.forEach(([name, functions]) => {
     if (middlewaresMap.get(name)) {
-      ttLog.warn(
-        `Overwriting built in middleware(s) on hook position "${name}"`
+      log.warn(
+        `Overwriting built in middleware(s) on hook position "${name}", due to your config.`
       )
     }
-
     middlewaresMap.set(name, functions)
   })
 
   MIDDLEWARE_ORDER.forEach(mwOrderName => {
     const middleware = middlewaresMap.get(mwOrderName)
-
     if (!middleware) {
       return
     }

@@ -1,21 +1,23 @@
 const Koa = require("koa")
 const log = require("tentales-log")("tt")
 
-const setupServices = require("./service/setup-services")
+const createServiceMethods = require("./service/create-service-methods")
+const createServiceMiddlewares = require("./middleware/create-service-middlewares")
 const initiateMiddlewares = require("./middleware/initiate-middlewares")
+const { convertServiceMethodsToServices } = require("./service/utils")
 const middlewareUtils = require("./middleware/middleware-utils")
 const DEFAULT_MIDDLEWARES = require("./middleware/default-middlewares")
 
 module.exports = function tenTales(config) {
   const server = new Koa()
-  const { services, middlewares: servicesMiddlewares } = setupServices(config)
-
+  const serviceMethods = createServiceMethods(config)
+  const serviceMiddlewares = createServiceMiddlewares(serviceMethods)
   initiateMiddlewares({
     server,
-    services,
+    services: convertServiceMethodsToServices(serviceMethods),
     middlewares: [
       ...DEFAULT_MIDDLEWARES,
-      ...servicesMiddlewares,
+      ...serviceMiddlewares,
       ...middlewareUtils.getHookMiddlewaresFromConfig(config)
     ]
   })

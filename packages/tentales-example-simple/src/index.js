@@ -10,7 +10,7 @@ function sampleMiddleware({ /* services, */ log }) {
     log("Sample middleware - After")
   }
 }
-sampleLastMiddleware.ttName = "Sample Middleware"
+sampleMiddleware.ttName = "Sample Middleware"
 
 function sampleLastMiddleware({ /* services, */ log }) {
   return async (/* ctx */ _, next) => {
