@@ -1,7 +1,7 @@
 function renderer(/* dataConfig */ _, /* tentales */ { log, services }) {
-  log("Up")
+  log.verbose("Up")
   return async ({ /* type, */ payload }) => {
-    log("Got request")
+    log.verbose("Got request")
     // const components = resolveComponents(tentales.reactComponentsDirectory)
 
     // return ReactDOM.renderToString(

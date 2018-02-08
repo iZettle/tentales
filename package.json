@@ -5,9 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:simple": "nodemon -w ./packages -x node ./packages/tentales-example-simple/src/index.js",
-    "dev:advanced-front": "nodemon -x node ./packages/tentales-example-advanced/src/index.front.js",
-    "dev:advanced-back": "nodemon -x node ./packages/tentales-example-advanced/src/index.back.js",
+    "dev:simple": "LOG_LEVEL=silly nodemon -w ./packages -x node ./packages/tentales-example-simple/src/index.js",
+    "dev:advanced-front": "LOG_LEVEL=silly nodemon -x node ./packages/tentales-example-advanced/src/index.front.js",
+    "dev:advanced-back": "LOG_LEVEL=silly nodemon -x node ./packages/tentales-example-advanced/src/index.back.js",
     "lint": "eslint packages",
     "format": "prettier --write 'packages/**/*.js'",
     "precommit": "lint-staged"
@@ -30,6 +30,7 @@
     "packages/tentales-editor",
     "packages/tentales-example-advanced",
     "packages/tentales-example-simple",
+    "packages/tentales-log",
     "packages/tentales-renderer",
     "packages/tentales-renderer-plugin-cache-in-memory",
     "packages/tentales-renderer-plugin-cache-redis",
@@ -52,5 +53,9 @@
     "lint-staged": "^6.1.0",
     "nodemon": "^1.14.11",
     "prettier": "^1.10.2"
+  },
+  "dependencies": {
+    "npmlog": "^4.1.2",
+    "ramda": "^0.25.0"
   }
 }

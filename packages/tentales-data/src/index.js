@@ -1,7 +1,7 @@
 function data(/* dataConfig */ _, /* tentales */ { log }) {
-  log("Up")
+  log.verbose("Up")
   return async request => {
-    log("Got request", request)
+    log.verbose("Got request", request)
     return {
       databaseResult: {
         page: request.payload

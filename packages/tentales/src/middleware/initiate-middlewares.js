@@ -1,6 +1,6 @@
-const logger = require("../utils/logger")
+const createLog = require("tentales-log")
 
-const ttLog = logger.createServiceLogger(`tt`)
+const ttLog = createLog("tt")
 
 const MIDDLEWARE_ORDER = [
   "first",
@@ -23,7 +23,9 @@ function initiateMiddlewares({ middlewares, server, services }) {
   const middlewaresMap = new Map()
   middlewares.forEach(([name, functions]) => {
     if (middlewaresMap.get(name)) {
-      ttLog(`Overwriting middleware(s) on hook position "${name}"`)
+      ttLog.warn(
+        `Overwriting built in middleware(s) on hook position "${name}"`
+      )
     }
 
     middlewaresMap.set(name, functions)
@@ -39,8 +41,8 @@ function initiateMiddlewares({ middlewares, server, services }) {
     middleware.forEach((mw, index) => {
       const series = index > 0 ? `-${index + 1}` : ""
       const mwName = mw.ttName || `${mwOrderName}${series}`
-      const mwLog = logger.createServiceLogger(`${mwName} middleware`)
-      mwLog("Initiating")
+      const mwLog = createLog(`${mwName} middleware`)
+      mwLog.verbose("Initiating")
       server.use(
         mw({
           services,

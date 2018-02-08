@@ -1,5 +1,5 @@
 const Koa = require("koa")
-const logger = require("./utils/logger")
+const log = require("tentales-log")("tt")
 
 const setupServices = require("./service/setup-services")
 const initiateMiddlewares = require("./middleware/initiate-middlewares")
@@ -21,8 +21,6 @@ module.exports = function tenTales(config) {
   })
 
   server.listen(config.port, () => {
-    logger.plainLog("")
-    logger.plainLog("Ten Tales is up on port", config.port)
-    logger.plainLog("")
+    log.info("\nTen Tales is up on port", config.port, "\n")
   })
 }

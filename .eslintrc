@@ -36,6 +36,7 @@
     "react/no-multi-comp": 1,
     "react/no-string-refs": ["warn"],
     "react/prefer-stateless-function": 1,
-    "semi": [2, "never"]
+    "semi": [2, "never"],
+    "import/no-extraneous-dependencies": 0
   }
 }

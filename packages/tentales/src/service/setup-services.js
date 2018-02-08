@@ -1,12 +1,12 @@
 const fetch = require("node-fetch")
-const logger = require("../utils/logger")
+const createLog = require("tentales-log")
 
 function setupServices(config) {
   const services = {}
   const middlewares = Object.keys(config.services)
     .map(serviceName => {
-      const log = logger.createServiceLogger(`${serviceName} service`)
-      const ttServiceLog = logger.createServiceLogger(`tt -> ${serviceName}`)
+      const log = createLog(`${serviceName} service`)
+      const ttServiceLog = createLog(`tt -> ${serviceName}`)
 
       /**
        * Access services
@@ -17,7 +17,7 @@ function setupServices(config) {
           serviceConfig.host === "this"
             ? `http://localhost:${config.port}`
             : serviceConfig.host
-        ttServiceLog(`Calling service on ${host}${serviceConfig.path}`)
+        ttServiceLog.verbose(`Calling service on ${host}${serviceConfig.path}`)
         // TODO, add timeout
         const response = await fetch(`${host}${serviceConfig.path}`, {
           method: "POST",
