@@ -18,7 +18,7 @@ const MIDDLEWARE_ORDER = [
 ]
 
 function initiateMiddlewares({ middlewares, server, services }) {
-  const log = createLog("tt")
+  const log = createLog("TT")
   const middlewaresMap = new Map()
   middlewares.forEach(([name, functions]) => {
     if (middlewaresMap.get(name)) {
@@ -39,13 +39,13 @@ function initiateMiddlewares({ middlewares, server, services }) {
       const series = index > 0 ? `-${index + 1}` : ""
       const mwName = mw.ttName || `${mwOrderName}${series}`
       const mwLog = createLog(`${mwName} middleware`)
-      mwLog.verbose("Initiating")
       server.use(
         mw({
           services,
           log: mwLog
         })
       )
+      mwLog.verbose("Started")
     })
   })
 }

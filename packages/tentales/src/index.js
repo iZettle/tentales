@@ -1,5 +1,5 @@
 const Koa = require("koa")
-const log = require("tentales-log")("tt")
+const log = require("tentales-log")("TT")
 
 const createServiceMethods = require("./service/create-service-methods")
 const createServiceMiddlewares = require("./middleware/create-service-middlewares")

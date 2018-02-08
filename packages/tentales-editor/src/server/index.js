@@ -1,7 +1,7 @@
 function editor(/* dataConfig */ _, /* tentales */ { log }) {
-  log.verbose("Up")
-  return async (/* { type, payload } */) => {
-    log.verbose("Got request")
+  log.info("Started")
+  return async action => {
+    log.silly("Received action", JSON.stringify(action))
     return { editor: "editor" }
   }
 }

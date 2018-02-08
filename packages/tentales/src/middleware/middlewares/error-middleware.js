@@ -11,5 +11,6 @@ function errorMiddlewareFactory() {
     }
   }
 }
+errorMiddlewareFactory.ttName = "Error"
 
 module.exports = errorMiddlewareFactory

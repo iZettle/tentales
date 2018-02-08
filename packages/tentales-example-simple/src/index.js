@@ -5,18 +5,18 @@ const path = require("path")
 
 function sampleMiddleware({ /* services, */ log }) {
   return async (/* ctx */ _, next) => {
-    log("Sample middleware - Before")
+    log.verbose("Sample middleware - Before")
     await next()
-    log("Sample middleware - After")
+    log.verbose("Sample middleware - After")
   }
 }
 sampleMiddleware.ttName = "Sample Middleware"
 
 function sampleLastMiddleware({ /* services, */ log }) {
   return async (/* ctx */ _, next) => {
-    log("Sample last middleware - Before")
+    log.verbose("Sample last middleware - Before")
     await next()
-    log("Sample last middleware - After")
+    log.verbose("Sample last middleware - After")
   }
 }
 sampleLastMiddleware.ttName = "Sample Last"
@@ -41,8 +41,8 @@ tenTales({
   },
   hooks: {
     middlewares: {
-      beforeRendererService: [sampleMiddleware],
-      last: [sampleLastMiddleware]
+      // beforeRendererService: [sampleMiddleware],
+      // last: [sampleLastMiddleware]
     }
   }
 })

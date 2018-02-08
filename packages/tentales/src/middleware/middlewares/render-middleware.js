@@ -6,15 +6,18 @@ function renderMiddlewareFactory({ services, log }) {
     ) {
       await next()
     } else {
-      log("Matched http request", ctx.request.URL.pathname)
+      log.silly("Acting on request")
       const response = await services.renderer({
-        type: "getPage",
-        payload: ctx.request.URL.pathname
+        type: "renderPage",
+        payload: {
+          pathname: ctx.request.URL.pathname
+        }
       })
 
       ctx.body = response.html
     }
   }
 }
+renderMiddlewareFactory.ttName = "Render"
 
 module.exports = renderMiddlewareFactory

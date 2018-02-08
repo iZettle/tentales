@@ -1,7 +1,7 @@
 function renderer(/* dataConfig */ _, /* tentales */ { log, services }) {
-  log.verbose("Up")
-  return async ({ /* type, */ payload }) => {
-    log.verbose("Got request")
+  log.info("Started")
+  return async action => {
+    log.silly("Received action", JSON.stringify(action))
     // const components = resolveComponents(tentales.reactComponentsDirectory)
 
     // return ReactDOM.renderToString(
@@ -12,7 +12,10 @@ function renderer(/* dataConfig */ _, /* tentales */ { log, services }) {
     //   />
     // )
 
-    const data = await services.data({ type: "getPage", payload })
+    const data = await services.data({
+      type: "getPage",
+      payload: action.payload
+    })
 
     return {
       html: `<html><h1>Hello from ${data.databaseResult.page}</h1></html>`

@@ -1,10 +1,10 @@
 function data(/* dataConfig */ _, /* tentales */ { log }) {
-  log.verbose("Up")
-  return async request => {
-    log.verbose("Got request", request)
+  log.info("Started")
+  return async action => {
+    log.silly("Received action", JSON.stringify(action))
     return {
       databaseResult: {
-        page: request.payload
+        page: `${action.payload.pathname} data from data service`
       }
     }
   }
