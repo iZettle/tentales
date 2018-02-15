@@ -1,4 +1,6 @@
-const createLog = require("tentales-log")
+import { createLog } from "tentales-log"
+import Koa from "koa"
+import { ServicesMap, MiddlewareDefinition, Middleware } from "../types"
 
 const MIDDLEWARE_ORDER = [
   "first",
@@ -14,16 +16,24 @@ const MIDDLEWARE_ORDER = [
   "beforeDataService",
   "dataService",
   "afterDataService",
-  "last"
+  "last",
 ]
 
-function initiateMiddlewares({ middlewares, server, services }) {
+export function initiateMiddlewares({
+  middlewares,
+  server,
+  services,
+}: {
+  middlewares: MiddlewareDefinition[]
+  server: Koa
+  services: ServicesMap
+}): void {
   const log = createLog("TT")
   const middlewaresMap = new Map()
   middlewares.forEach(([name, functions]) => {
     if (middlewaresMap.get(name)) {
       log.warn(
-        `Overwriting Ten Tales default middleware(s) on hook position "${name}". This might be what you intended.`
+        `Overwriting Ten Tales default middleware(s) on hook position "${name}". This might be what you intended.`,
       )
     }
     middlewaresMap.set(name, functions)
@@ -35,19 +45,17 @@ function initiateMiddlewares({ middlewares, server, services }) {
       return
     }
 
-    middleware.forEach((mw, index) => {
+    middleware.forEach((mw: Middleware, index: number) => {
       const series = index > 0 ? `-${index + 1}` : ""
-      const mwName = mw.ttName || `${mwOrderName}${series}`
+      const mwName = mw.displayName || `${mwOrderName}${series}`
       const mwLog = createLog(`${mwName} middleware`)
       server.use(
         mw({
           services,
-          log: mwLog
-        })
+          log: mwLog,
+        }),
       )
       mwLog.verbose("Started")
     })
   })
 }
-
-module.exports = initiateMiddlewares

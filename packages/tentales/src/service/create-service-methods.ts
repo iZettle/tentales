@@ -1,11 +1,17 @@
-const fetch = require("node-fetch")
-const createLog = require("tentales-log")
+import fetch from "node-fetch"
+import { createLog } from "tentales-log"
+import { Config } from "../types"
+import { ServiceCaller, ServiceConfig, Action } from "../types"
 
-function createServiceCallers(config) {
+function getServiceConfig(serviceName: string, config: any): ServiceConfig {
+  return config.services[serviceName] as ServiceConfig
+}
+
+export function createServiceCallers(config: Config): ServiceCaller[] {
   return Object.keys(config.services).map(serviceName => {
     const log = createLog("TT")
-    const serviceConfig = config.services[serviceName]
-    const func = async action => {
+    const serviceConfig = getServiceConfig(serviceName, config)
+    const func = async (action: Action) => {
       const actionString = JSON.stringify(action)
       const host =
         serviceConfig.host === "this"
@@ -17,9 +23,9 @@ function createServiceCallers(config) {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: actionString
+        body: actionString,
       })
       return await response.json()
     }
@@ -27,9 +33,7 @@ function createServiceCallers(config) {
     return {
       func,
       name: serviceName,
-      config: serviceConfig
+      config: serviceConfig,
     }
   })
 }
-
-module.exports = createServiceCallers
