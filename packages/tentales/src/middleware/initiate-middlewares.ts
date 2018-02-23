@@ -1,6 +1,6 @@
 import { createLog } from "tentales-log"
 import Koa from "koa"
-import { ServicesMap, MiddlewareDefinition, Middleware } from "../types"
+import { Services, Hook, Middleware } from "../types"
 
 const MIDDLEWARE_ORDER = [
   "first",
@@ -24,9 +24,9 @@ export function initiateMiddlewares({
   server,
   services,
 }: {
-  middlewares: MiddlewareDefinition[]
+  middlewares: Hook[]
   server: Koa
-  services: ServicesMap
+  services: Services
 }): void {
   const log = createLog("TT")
   const middlewaresMap = new Map()

@@ -36,9 +36,9 @@ export interface Action {
   }
 }
 
-export type TenTalesService = (
+export type ServiceFactory = (
   config: ServiceConfig,
-  { log, services }: { log: Log; services: ServicesMap },
+  { log, services }: { log: Log; services: Services },
 ) => Service
 
 export type Service = (action: Action) => Promise<any>
@@ -54,18 +54,18 @@ export interface ServiceConfig {
   path: string
 }
 
-export interface ServicesMap {
+export interface Services {
   renderer: Service
   data: Service
   editor: Service
 }
 
 export interface Middleware {
-  ({ services, log }: { services: ServicesMap; log: Log }): Koa.Middleware
+  ({ services, log }: { services: Services; log: Log }): Koa.Middleware
   displayName?: string
 }
 
-export type MiddlewareDefinition = [string, Middleware[]]
+export type Hook = [string, Middleware[]]
 
 export interface ReduceObject {
   [key: string]: any

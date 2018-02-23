@@ -1,6 +1,6 @@
-import { TenTalesService } from "tentales/src/types"
+import { ServiceFactory } from "tentales/src/types"
 
-export const renderer: TenTalesService = (
+export const renderer: ServiceFactory = (
   /* dataConfig */ _,
   /* tentales */ { log, services },
 ) => {

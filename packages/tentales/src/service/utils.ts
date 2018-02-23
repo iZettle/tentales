@@ -1,13 +1,13 @@
-import { ServiceCaller, ServicesMap, Service, ReduceObject } from "../types"
+import { ServiceCaller, Services, Service, ReduceObject } from "../types"
 
 export function convertServiceMethodsToServices(
   serviceMethods: ServiceCaller[],
-): ServicesMap {
+): Services {
   return serviceMethods.reduce(
     (acc, method): Service => {
       acc[method.name] = method.func
       return acc as Service
     },
     {} as ReduceObject,
-  ) as ServicesMap
+  ) as Services
 }

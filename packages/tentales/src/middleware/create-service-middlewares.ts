@@ -6,16 +6,16 @@ import { convertServiceMethodsToServices } from "../service/utils"
 import { uppercaseFirst } from "../utils/string"
 import {
   Middleware,
-  MiddlewareDefinition,
+  Hook,
   ServiceCaller,
-  TenTalesService,
+  ServiceFactory,
 } from "../types"
 
 const SERVICE_MODULES: {
-  renderer: TenTalesService
-  data: TenTalesService
-  editor: TenTalesService
-  [key: string]: TenTalesService
+  renderer: ServiceFactory
+  data: ServiceFactory
+  editor: ServiceFactory
+  [key: string]: ServiceFactory
 } = {
   renderer,
   data,
@@ -24,7 +24,7 @@ const SERVICE_MODULES: {
 
 export function createServiceMiddlewares(
   serviceMethods: ServiceCaller[],
-): MiddlewareDefinition[] {
+): Hook[] {
   return serviceMethods
     .filter(({ config }) => config.host === "this")
     .map(serviceMethod => {
@@ -49,6 +49,6 @@ export function createServiceMiddlewares(
         }
       middleware.displayName = serviceName
 
-      return [hookName, [middleware]] as MiddlewareDefinition
+      return [hookName, [middleware]] as Hook
     })
 }
