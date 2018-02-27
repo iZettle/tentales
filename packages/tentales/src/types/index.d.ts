@@ -2,28 +2,28 @@ import * as Koa from "koa"
 import { Log } from "tentales-log"
 
 type ServiceName = "renderer" | "data" | "editor"
+type HookName =
+  | "first"
+  | "beforeRender"
+  | "render"
+  | "afterRender"
+  | "beforeRendererService"
+  | "rendererService"
+  | "afterRendererService"
+  | "beforeEditorService"
+  | "editorService"
+  | "afterEditorService"
+  | "beforeDataService"
+  | "dataService"
+  | "afterDataService"
+  | "last"
 
 export interface Config {
   port: number
   reactComponentsDirectory: string
   services: { [K in ServiceName]: ServiceConfig }
   hooks?: {
-    middlewares?: {
-      first?: Middleware[]
-      beforeRender?: Middleware[]
-      render?: Middleware[]
-      afterRender?: Middleware[]
-      beforeRendererService?: Middleware[]
-      rendererService?: Middleware[]
-      afterRendererService?: Middleware[]
-      beforeEditorService?: Middleware[]
-      editorService?: Middleware[]
-      afterEditorService?: Middleware[]
-      beforeDataService?: Middleware[]
-      dataService?: Middleware[]
-      afterDataService?: Middleware[]
-      last?: Middleware[]
-    }
+    middlewares?: { [K in HookName]?: Middleware[] }
   }
 }
 
