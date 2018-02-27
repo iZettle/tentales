@@ -9,14 +9,10 @@ import {
   Hook,
   ServiceCaller,
   ServiceFactory,
+  ServiceName,
 } from "../types"
 
-const SERVICE_MODULES: {
-  renderer: ServiceFactory
-  data: ServiceFactory
-  editor: ServiceFactory
-  [key: string]: ServiceFactory
-} = {
+const SERVICE_MODULES: { [K in ServiceName]: ServiceFactory } = {
   renderer,
   data,
   editor,
@@ -28,16 +24,14 @@ export function createServiceMiddlewares(
   return serviceMethods
     .filter(({ config }) => config.host === "this")
     .map(serviceMethod => {
+      const serviceName: ServiceName = serviceMethod.name as ServiceName
       const hookName = `${serviceMethod.name}Service`
-      const serviceName = `${uppercaseFirst(serviceMethod.name)} Service`
+      const displayName = `${uppercaseFirst(serviceMethod.name)} Service`
 
-      const service = SERVICE_MODULES[serviceMethod.name](
-        serviceMethod.config,
-        {
-          services: convertServiceMethodsToServices(serviceMethods),
-          log: createLog(serviceName),
-        },
-      )
+      const service = SERVICE_MODULES[serviceName](serviceMethod.config, {
+        services: convertServiceMethodsToServices(serviceMethods),
+        log: createLog(displayName),
+      })
 
       const middleware: Middleware = () =>
         async function serviceMiddleware(ctx, next) {
@@ -47,7 +41,7 @@ export function createServiceMiddlewares(
             await next()
           }
         }
-      middleware.displayName = serviceName
+      middleware.displayName = displayName
 
       return [hookName, [middleware]] as Hook
     })

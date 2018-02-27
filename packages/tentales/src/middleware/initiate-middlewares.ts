@@ -1,23 +1,25 @@
 import { createLog } from "tentales-log"
 import Koa from "koa"
-import { Services, Hook, Middleware } from "../types"
+import { Services, Hook, Middleware, HookName } from "../types"
 
 const MIDDLEWARE_ORDER = [
+  "beforeErrorMiddleware",
+  "errorMiddleware",
   "first",
-  "beforeRender",
-  "render",
-  "afterRender",
-  "beforeRendererService",
+  "beforeBodyParserMiddleware",
+  "bodyParserMiddleware",
+  "beforeRenderMiddleware",
+  "renderMiddleware",
+  "afterRenderMiddleware",
+  "beforeServices",
   "rendererService",
-  "afterRendererService",
-  "beforeEditorService",
   "editorService",
-  "afterEditorService",
-  "beforeDataService",
   "dataService",
-  "afterDataService",
+  "afterServices",
+  "fourOhFourMiddleware",
+  "beforeFourOhFourMiddleware",
   "last",
-]
+] as HookName[]
 
 export function initiateMiddlewares({
   middlewares,
