@@ -1,14 +1,12 @@
 import * as Koa from "koa"
 import { Log } from "tentales-log"
 
+type ServiceName = "renderer" | "data" | "editor"
+
 export interface Config {
   port: number
   reactComponentsDirectory: string
-  services: {
-    renderer: ServiceConfig
-    data: ServiceConfig
-    editor: ServiceConfig
-  }
+  services: { [K in ServiceName]: ServiceConfig }
   hooks?: {
     middlewares?: {
       first?: Middleware[]
