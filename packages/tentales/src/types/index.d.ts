@@ -29,10 +29,10 @@ export interface Config {
   }
 }
 
-export interface Action {
+export interface Action<T> {
   type: string
   payload: {
-    [property: string]: any
+    [property: string]: T
   }
 }
 
@@ -41,7 +41,12 @@ export type ServiceFactory = (
   { log, services }: { log: Log; services: Services },
 ) => Service
 
-export type Service = (action: Action) => Promise<any>
+export interface ServiceResponse {
+  // TODO: Define the response from the services
+  [property: string]: any
+}
+
+export type Service = <T>(action: Action<T>) => Promise<ServiceResponse>
 
 export interface ServiceCaller {
   func: Service

@@ -11,7 +11,7 @@ export function createServiceCallers(config: Config): ServiceCaller[] {
   return Object.keys(config.services).map(serviceName => {
     const log = createLog("TT")
     const serviceConfig = getServiceConfig(serviceName, config)
-    const func = async (action: Action) => {
+    const func = async <T>(action: Action<T>) => {
       const actionString = JSON.stringify(action)
       const host =
         serviceConfig.host === "this"
