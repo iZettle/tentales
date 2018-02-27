@@ -1,4 +1,4 @@
-import { Config, Hook, Middleware } from "../types"
+import { Config, Hook, Middleware, HookName } from "../types"
 
 function getMiddlewaresAtHook(
   hookName: string,
@@ -17,7 +17,7 @@ export function getHookMiddlewares(config: Config): Hook[] {
   return Object.keys(config.hooks.middlewares).reduce(
     (acc, hookName) => {
       const mwDefinition: Hook = [
-        hookName,
+        hookName as HookName,
         getMiddlewaresAtHook(hookName, hookMiddlewares),
       ]
       return [...acc, mwDefinition]

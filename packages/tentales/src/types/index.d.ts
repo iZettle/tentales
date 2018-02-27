@@ -70,4 +70,4 @@ export interface Middleware {
   displayName?: string
 }
 
-export type Hook = [string, Middleware[]]
+export type Hook = [HookName, Middleware[]]
