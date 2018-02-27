@@ -7,9 +7,7 @@ function getMiddlewaresAtHook(
   return hookMiddlewares[hookName] as Middleware[]
 }
 
-export function getHookMiddlewaresFromConfig(
-  config: Config,
-): Hook[] {
+export function getHookMiddlewaresFromConfig(config: Config): Hook[] {
   if (!config.hooks || !config.hooks.middlewares) {
     return []
   }
@@ -22,8 +20,7 @@ export function getHookMiddlewaresFromConfig(
         hookName,
         getMiddlewaresAtHook(hookName, hookMiddlewares),
       ]
-      acc.push(mwDefinition)
-      return acc
+      return [...acc, mwDefinition]
     },
     [] as Hook[],
   )

@@ -66,7 +66,3 @@ export interface Middleware {
 }
 
 export type Hook = [string, Middleware[]]
-
-export interface ReduceObject {
-  [key: string]: any
-}
