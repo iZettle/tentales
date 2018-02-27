@@ -4,7 +4,7 @@ import { createServiceCallers } from "./service/create-service-methods"
 import { createServiceMiddlewares } from "./middleware/create-service-middlewares"
 import { initiateMiddlewares } from "./middleware/initiate-middlewares"
 import { convertServiceMethodsToServices } from "./service/utils"
-import { getHookMiddlewaresFromConfig } from "./middleware/middleware-utils"
+import { getHookMiddlewares } from "./middleware/middleware-utils"
 import { DEFAULT_MIDDLEWARES } from "./middleware/default-middlewares"
 
 import { Config } from "./types"
@@ -21,7 +21,7 @@ export function tenTales(config: Config): void {
     middlewares: [
       ...DEFAULT_MIDDLEWARES,
       ...serviceMiddlewares,
-      ...getHookMiddlewaresFromConfig(config),
+      ...getHookMiddlewares(config),
     ],
   })
 
