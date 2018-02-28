@@ -5,12 +5,16 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:simple": "LOG_LEVEL=silly nodemon -w ./packages -x node ./packages/tentales-example-simple/src/index.js",
-    "dev:advanced-front": "LOG_LEVEL=silly nodemon -x node ./packages/tentales-example-advanced/src/index.front.js",
-    "dev:advanced-back": "LOG_LEVEL=silly nodemon -x node ./packages/tentales-example-advanced/src/index.back.js",
-    "lint": "eslint packages",
+    "dev:simple": "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-simple/src/index.ts",
+    "dev:simple:check": "tsc -p packages/tentales-example-simple -w --pretty --strict --noEmit",
+    "dev:simple:lint": "tslint --project packages/tentales-example-simple",
+    "dev:advanced-front": "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-advanced/src/index.front.js",
+    "dev:advanced-back": "LOG_LEVEL=silly ts-node-dev --typeCheck --notify=false packages/tentales-example-advanced/src/index.back.js",
+    "jslint": "eslint packages",
     "format": "prettier --write 'packages/**/*.js'",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "nuke": "yarn nuke:dist",
+    "nuke:dist": "rimraf 'packages/*/dist'"
   },
   "prettier": {
     "semi": false,
@@ -40,6 +44,11 @@
     "packages/tentales-router-plugin-https-only"
   ],
   "devDependencies": {
+    "@types/koa": "^2.0.44",
+    "@types/koa-bodyparser": "^4.2.0",
+    "@types/node": "^9.4.6",
+    "@types/node-fetch": "^1.6.7",
+    "@types/ramda": "^0.25.18",
     "babel-eslint": "^8.2.1",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
@@ -52,10 +61,17 @@
     "jest": "^22.1.4",
     "lint-staged": "^6.1.0",
     "nodemon": "^1.14.11",
-    "prettier": "^1.10.2"
+    "prettier": "^1.10.2",
+    "rimraf": "^2.6.2",
+    "ts-node": "^4.1.0",
+    "ts-node-dev": "^1.0.0-pre.16",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.1",
+    "yarn-run-all": "^3.1.1"
   },
   "dependencies": {
     "npmlog": "^4.1.2",
-    "ramda": "^0.25.0"
+    "ramda": "^0.25.0",
+    "tslint-config-prettier": "^1.8.0"
   }
 }

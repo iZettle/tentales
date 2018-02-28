@@ -1,4 +1,9 @@
-function renderer(/* dataConfig */ _, /* tentales */ { log, services }) {
+import { ServiceFactory } from "tentales/src/types"
+
+export const renderer: ServiceFactory = (
+  /* dataConfig */ _,
+  /* tentales */ { log, services },
+) => {
   log.info("Started")
   return async action => {
     log.silly("Received action", JSON.stringify(action))
@@ -14,13 +19,11 @@ function renderer(/* dataConfig */ _, /* tentales */ { log, services }) {
 
     const data = await services.data({
       type: "getPage",
-      payload: action.payload
+      payload: action.payload,
     })
 
     return {
-      html: `<html><h1>Hello from ${data.databaseResult.page}</h1></html>`
+      html: `<html><h1>Hello from ${data.databaseResult.page}</h1></html>`,
     }
   }
 }
-
-module.exports = renderer
