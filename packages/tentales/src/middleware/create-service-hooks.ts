@@ -18,9 +18,7 @@ const SERVICE_MODULES: { [K in ServiceName]: ServiceFactory } = {
   editor,
 }
 
-export function createServiceMiddlewares(
-  serviceMethods: ServiceCaller[],
-): Hook[] {
+export function createServiceHooks(serviceMethods: ServiceCaller[]): Hook[] {
   return serviceMethods
     .filter(({ config }) => config.host === "this")
     .map(serviceMethod => {

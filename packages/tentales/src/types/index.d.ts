@@ -2,6 +2,7 @@ import * as Koa from "koa"
 import { Log } from "tentales-log"
 
 export type ServiceName = "renderer" | "data" | "editor"
+
 type HookName =
   | "beforeErrorMiddleware"
   | "errorMiddleware"

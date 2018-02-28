@@ -7,7 +7,7 @@ import { errorMiddleware } from "./middlewares/error-middleware"
 
 const bodyParserMiddleware = () => bodyParser()
 
-export const DEFAULT_MIDDLEWARES: Hook[] = [
+export const DEFAULT_HOOKS: Hook[] = [
   ["errorMiddleware", [errorMiddleware]],
   ["bodyParserMiddleware", [bodyParserMiddleware]],
   ["renderMiddleware", [renderMiddleware]],
