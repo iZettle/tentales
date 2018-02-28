@@ -5,11 +5,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:simple": "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-simple/src/index.ts",
-    "dev:simple:check": "tsc -p packages/tentales-example-simple -w --pretty --strict --noEmit",
+    "dev:simple":
+      "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-simple/src/index.ts",
+    "dev:simple:check":
+      "tsc -p packages/tentales-example-simple -w --pretty --strict --noEmit",
     "dev:simple:lint": "tslint --project packages/tentales-example-simple",
-    "dev:advanced-front": "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-advanced/src/index.front.js",
-    "dev:advanced-back": "LOG_LEVEL=silly ts-node-dev --typeCheck --notify=false packages/tentales-example-advanced/src/index.back.js",
+    "dev:advanced-front":
+      "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-advanced/src/index.front.js",
+    "dev:advanced-back":
+      "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-advanced/src/index.back.js",
     "jslint": "eslint packages",
     "format": "prettier --write 'packages/**/*.js'",
     "precommit": "lint-staged",
@@ -21,11 +25,7 @@
     "jsxBracketSameLine": true
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "eslint --fix --cache",
-      "git add"
-    ]
+    "*.js": ["prettier --write", "eslint --fix --cache", "git add"]
   },
   "workspaces": [
     "packages/tentales",

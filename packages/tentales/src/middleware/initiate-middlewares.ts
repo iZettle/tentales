@@ -2,7 +2,7 @@ import { createLog } from "tentales-log"
 import Koa from "koa"
 import { Services, Hook, Middleware, HookName } from "../types"
 
-const MIDDLEWARE_ORDER = [
+const HOOKS_ORDER = [
   "beforeErrorMiddleware",
   "errorMiddleware",
   "first",
@@ -22,37 +22,38 @@ const MIDDLEWARE_ORDER = [
 ] as HookName[]
 
 export function initiateMiddlewares({
-  middlewares,
+  hooks,
   server,
   services,
 }: {
-  middlewares: Hook[]
+  hooks: Hook[]
   server: Koa
   services: Services
 }): void {
   const log = createLog("TT")
-  const middlewaresMap = new Map()
-  middlewares.forEach(([name, functions]) => {
-    if (middlewaresMap.get(name)) {
+  const uniqueHooks = new Map()
+
+  hooks.forEach(([name, functions]) => {
+    if (uniqueHooks.get(name)) {
       log.warn(
         `Overwriting Ten Tales default middleware(s) on hook position "${name}". This might be what you intended.`,
       )
     }
-    middlewaresMap.set(name, functions)
+    uniqueHooks.set(name, functions)
   })
 
-  MIDDLEWARE_ORDER.forEach(mwOrderName => {
-    const middleware = middlewaresMap.get(mwOrderName)
-    if (!middleware) {
+  HOOKS_ORDER.forEach(mwOrderName => {
+    const hook = uniqueHooks.get(mwOrderName)
+    if (!hook) {
       return
     }
 
-    middleware.forEach((mw: Middleware, index: number) => {
+    hook.forEach((middleware: Middleware, index: number) => {
       const series = index > 0 ? `-${index + 1}` : ""
-      const mwName = mw.displayName || `${mwOrderName}${series}`
+      const mwName = middleware.displayName || `${mwOrderName}${series}`
       const mwLog = createLog(`${mwName} middleware`)
       server.use(
-        mw({
+        middleware({
           services,
           log: mwLog,
         }),

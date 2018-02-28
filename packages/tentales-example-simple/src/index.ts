@@ -34,8 +34,8 @@ tenTales({
   },
   hooks: {
     middlewares: {
-      beforeRenderMiddleware: [sampleMiddleware],
-      // last: [sampleLastMiddleware]
+      // beforeRenderMiddleware: [sampleMiddleware],
+      rendererService: [sampleMiddleware],
     },
   },
 })

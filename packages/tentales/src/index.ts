@@ -1,27 +1,27 @@
 import Koa from "koa"
 import { createLog } from "tentales-log"
-import { createServiceCallers } from "./service/create-service-methods"
-import { createServiceMiddlewares } from "./middleware/create-service-middlewares"
+import { createServiceCallers } from "./service/create-service-callers"
+import { createServiceHooks } from "./middleware/create-service-hooks"
 import { initiateMiddlewares } from "./middleware/initiate-middlewares"
 import { convertServiceMethodsToServices } from "./service/utils"
-import { getHookMiddlewares } from "./middleware/middleware-utils"
-import { DEFAULT_MIDDLEWARES } from "./middleware/default-middlewares"
+import { createConfigHooks } from "./middleware/middleware-utils"
+import { DEFAULT_HOOKS } from "./middleware/default-hooks"
 
 import { Config } from "./types"
 
 const log = createLog("TT")
 export function tenTales(config: Config): void {
   const server = new Koa()
-  const serviceMethods = createServiceCallers(config)
-  const serviceMiddlewares = createServiceMiddlewares(serviceMethods)
+  const serviceCallers = createServiceCallers(config)
+  const serviceHooks = createServiceHooks(serviceCallers)
 
   initiateMiddlewares({
     server,
-    services: convertServiceMethodsToServices(serviceMethods),
-    middlewares: [
-      ...DEFAULT_MIDDLEWARES,
-      ...serviceMiddlewares,
-      ...getHookMiddlewares(config),
+    services: convertServiceMethodsToServices(serviceCallers),
+    hooks: [
+      ...DEFAULT_HOOKS,
+      ...serviceHooks,
+      ...createConfigHooks(config),
     ],
   })
 
