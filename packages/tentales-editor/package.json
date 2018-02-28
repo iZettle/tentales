@@ -1,6 +1,6 @@
 {
   "name": "tentales-editor",
   "version": "1.0.0",
-  "main": "src/server/index.js",
+  "main": "src/server/index.ts",
   "license": "MIT"
 }

@@ -1,5 +1,7 @@
-function errorMiddlewareFactory() {
-  return async function errorMiddleware(ctx, next) {
+import { Middleware } from "../../types"
+
+export const errorMiddleware: Middleware = () =>
+  async function actualErrorMiddleware(ctx, next) {
     try {
       await next()
     } catch (err) {
@@ -10,7 +12,5 @@ function errorMiddlewareFactory() {
       ctx.app.emit("error", err, ctx)
     }
   }
-}
-errorMiddlewareFactory.ttName = "Error"
 
-module.exports = errorMiddlewareFactory
+errorMiddleware.displayName = "Error"
