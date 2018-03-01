@@ -1,4 +1,4 @@
-import { Middleware } from "../../types"
+import { Middleware } from "tentales"
 
 export const renderMiddleware: Middleware = ({ services, log }) =>
   async function actualRenderMiddleware(ctx, next) {

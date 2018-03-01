@@ -1,7 +1,6 @@
 import fetch from "node-fetch"
 import { createLog } from "tentales-log"
-import { Config } from "../types"
-import { ServiceCaller, ServiceConfig, Action } from "../types"
+import { Action, ServiceConfig, ServiceCaller, Config } from "tentales"
 
 function getServiceConfig(serviceName: string, config: any): ServiceConfig {
   return config.services[serviceName] as ServiceConfig

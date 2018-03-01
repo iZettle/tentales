@@ -1,4 +1,4 @@
-import { ServiceCaller, Services, Service } from "../types"
+import { Service, Services, ServiceCaller } from "tentales"
 
 export function convertServiceMethodsToServices(
   serviceMethods: ServiceCaller[],
