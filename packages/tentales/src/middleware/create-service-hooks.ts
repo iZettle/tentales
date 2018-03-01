@@ -4,13 +4,14 @@ import { data } from "tentales-data"
 import { editor } from "tentales-editor"
 import { convertServiceMethodsToServices } from "../service/utils"
 import { uppercaseFirst } from "../utils/string"
+
 import {
   Middleware,
-  Hook,
+  ServiceName,
   ServiceCaller,
   ServiceFactory,
-  ServiceName,
-} from "../types"
+  Hook,
+} from "tentales"
 
 const SERVICE_MODULES: { [K in ServiceName]: ServiceFactory } = {
   renderer,

@@ -1,4 +1,4 @@
-import { Hook } from "../types"
+import { Hook } from "tentales"
 
 import bodyParser from "koa-bodyparser"
 import { renderMiddleware } from "./middlewares/render-middleware"

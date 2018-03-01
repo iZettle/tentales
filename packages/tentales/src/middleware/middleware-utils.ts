@@ -1,4 +1,4 @@
-import { Config, Hook, Middleware, HookName } from "../types"
+import { HookName, Middleware, Hook, Config } from "tentales"
 
 function getMiddlewaresAtHook(
   hookName: string,

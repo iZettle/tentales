@@ -1,6 +1,6 @@
 import { createLog } from "tentales-log"
 import Koa from "koa"
-import { Services, Hook, Middleware, HookName } from "../types"
+import { Middleware, ServiceName, HookName, Services, Hook } from "tentales"
 
 const HOOKS_ORDER = [
   "beforeErrorMiddleware",
