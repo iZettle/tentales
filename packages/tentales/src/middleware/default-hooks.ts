@@ -1,11 +1,8 @@
 import { Hook } from "tentales"
-
-import bodyParser from "koa-bodyparser"
+import { bodyParserMiddleware } from "./middlewares/body-parser-middleware"
 import { renderMiddleware } from "./middlewares/render-middleware"
 import { fourOhFourMiddleware } from "./middlewares/four-oh-four-middleware"
 import { errorMiddleware } from "./middlewares/error-middleware"
-
-const bodyParserMiddleware = () => bodyParser()
 
 const DEFAULT_HOOKS_PUBLIC: Hook[] = [
   ["errorMiddleware", [errorMiddleware]],
