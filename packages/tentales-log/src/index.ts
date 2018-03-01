@@ -6,6 +6,7 @@ import log from "npmlog"
 
 log.level = process.env.LOG_LEVEL || "info"
 
+/* tslint:disable no-any */
 export interface Log {
   silly(...rest: any[]): void
   verbose(...rest: any[]): void
@@ -13,6 +14,7 @@ export interface Log {
   warn(...rest: any[]): void
   error(...rest: any[]): void
 }
+/* tslint:enable */
 
 export function createLog(appName: string): Log {
   return {

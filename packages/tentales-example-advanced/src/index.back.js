@@ -1,6 +1,4 @@
-// TODO: Remove eslint-disable once import of sibling dependency is figured out
-// eslint-disable-next-line import/no-extraneous-dependencies
-const tenTales = require("tentales").tenTales
+const { tenTales } = require("tentales")
 const path = require("path")
 
 tenTales({
@@ -9,16 +7,16 @@ tenTales({
   services: {
     renderer: {
       host: "http://localhost:4000",
-      path: "/tt/renderer"
+      path: "/tt/renderer",
     },
     data: {
       host: "this",
-      path: "/tt/data"
+      path: "/tt/data",
       // persistence: "postgres"
     },
     editor: {
       host: "this",
-      path: "/tt/editor"
-    }
-  }
+      path: "/tt/editor",
+    },
+  },
 })

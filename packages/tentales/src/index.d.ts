@@ -5,7 +5,7 @@ declare module "tentales" {
   /**
    * App
    */
-  export const tenTales: (config: any) => void
+  export const tenTales: (config: Config) => void
 
   /**
    * Services
@@ -37,6 +37,7 @@ declare module "tentales" {
 
   export interface ServiceResponse {
     // TODO: Define the response from the services
+    // tslint:disable-next-line:no-any
     [property: string]: any
   }
 
@@ -91,5 +92,4 @@ declare module "tentales" {
       middlewares?: { [K in HookName]?: Middleware[] }
     }
   }
-
 }

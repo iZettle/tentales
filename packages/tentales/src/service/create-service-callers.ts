@@ -2,6 +2,7 @@ import fetch from "node-fetch"
 import { createLog } from "tentales-log"
 import { Action, ServiceConfig, ServiceCaller, Config } from "tentales"
 
+// tslint:disable-next-line:no-any
 function getServiceConfig(serviceName: string, config: any): ServiceConfig {
   return config.services[serviceName] as ServiceConfig
 }

@@ -2,6 +2,7 @@ import { HookName, Middleware, Hook, Config } from "tentales"
 
 function getMiddlewaresAtHook(
   hookName: string,
+  // tslint:disable-next-line:no-any
   hookMiddlewares: any,
 ): Middleware[] {
   return hookMiddlewares[hookName] as Middleware[]

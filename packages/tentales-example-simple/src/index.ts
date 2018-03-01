@@ -2,7 +2,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { tenTales, Middleware } from "tentales"
 
-
 import * as path from "path"
 
 const sampleMiddleware: Middleware = ({ log }) =>
