@@ -9,23 +9,27 @@
       "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-simple/src/index.ts",
     "dev:simple:check":
       "tsc -p packages/tentales-example-simple -w --pretty --strict --noEmit",
-    "dev:simple:lint": "tslint --project packages/tentales-example-simple",
     "dev:advanced-front":
       "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-advanced/src/index.front.js",
     "dev:advanced-back":
       "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-advanced/src/index.back.js",
-    "jslint": "eslint packages",
-    "format": "prettier --write 'packages/**/*.js'",
+    "lint": "yarn lint:ts && yarn lint:js",
+    "lint:ts": "tslint --project .",
+    "lint:js": "eslint packages",
+    "format": "prettier --write 'packages/**/*.{js,ts,json}'",
     "precommit": "lint-staged",
     "nuke": "yarn nuke:dist",
     "nuke:dist": "rimraf 'packages/*/dist'"
   },
   "prettier": {
     "semi": false,
-    "jsxBracketSameLine": true
+    "jsxBracketSameLine": true,
+    "trailingComma": "all"
   },
   "lint-staged": {
-    "*.js": ["prettier --write", "eslint --fix --cache", "git add"]
+    "*.js": ["prettier --write", "eslint --fix --cache", "git add"],
+    "*.ts": ["prettier --write", "tslint --fix", "git add"],
+    "*.json": ["prettier --write", "git add"]
   },
   "workspaces": [
     "packages/tentales",
