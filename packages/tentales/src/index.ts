@@ -5,9 +5,9 @@ import { createServiceHooks } from "./middleware/create-service-hooks"
 import { initiateMiddlewares } from "./middleware/initiate-middlewares"
 import { convertServiceMethodsToServices } from "./service/utils"
 import { createConfigHooks } from "./middleware/middleware-utils"
-import { DEFAULT_HOOKS } from "./middleware/default-hooks"
-
+import { getDefaultHooks } from "./middleware/default-hooks"
 import { Config } from "tentales"
+import { logRemoteServices } from "./utils/loggers"
 
 const log = createLog("TT")
 export function tenTales(config: Config): void {
@@ -15,10 +15,16 @@ export function tenTales(config: Config): void {
   const serviceCallers = createServiceCallers(config)
   const serviceHooks = createServiceHooks(serviceCallers)
 
+  logRemoteServices(serviceCallers)
+
   initiateMiddlewares({
     server,
     services: convertServiceMethodsToServices(serviceCallers),
-    hooks: [...DEFAULT_HOOKS, ...serviceHooks, ...createConfigHooks(config)],
+    hooks: [
+      ...getDefaultHooks({ isPublic: config.public }),
+      ...serviceHooks,
+      ...createConfigHooks(config),
+    ],
   })
 
   server.listen(config.port, () => {

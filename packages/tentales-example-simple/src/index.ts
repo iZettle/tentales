@@ -15,6 +15,7 @@ sampleMiddleware.displayName = "Sample Middleware"
 
 tenTales({
   port: 4000,
+  public: true,
   reactComponentsDirectory: path.join(__dirname, "components"),
   services: {
     renderer: {
@@ -34,7 +35,7 @@ tenTales({
   hooks: {
     middlewares: {
       // beforeRenderMiddleware: [sampleMiddleware],
-      rendererService: [sampleMiddleware],
+      // rendererService: [sampleMiddleware],
     },
   },
 })

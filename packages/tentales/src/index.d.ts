@@ -86,6 +86,7 @@ declare module "tentales" {
    */
   export interface Config {
     port: number
+    public: boolean
     reactComponentsDirectory: string
     services: { [K in ServiceName]: ServiceConfig }
     hooks?: {
