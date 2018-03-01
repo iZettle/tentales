@@ -10,9 +10,9 @@
     "dev:simple:check":
       "tsc -p packages/tentales-example-simple -w --pretty --strict --noEmit",
     "dev:advanced-front":
-      "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-advanced/src/index.front.js",
+      "LOG_LEVEL=silly nodemon --ext ts,js --exec ts-node ./packages/tentales-example-advanced/src/index.front.js",
     "dev:advanced-back":
-      "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-advanced/src/index.back.js",
+      "LOG_LEVEL=silly nodemon --ext ts,js --exec ts-node ./packages/tentales-example-advanced/src/index.back.js",
     "lint": "yarn lint:ts && yarn lint:js",
     "lint:ts": "tslint --project .",
     "lint:js": "eslint packages",
