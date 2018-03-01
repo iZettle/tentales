@@ -1,7 +1,7 @@
 // TODO: Remove eslint-disable once import of sibling dependency is figured out
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { tenTales } from "tentales"
-import { Middleware } from "tentales/src/types"
+import { tenTales, Middleware } from "tentales"
+
 
 import * as path from "path"
 

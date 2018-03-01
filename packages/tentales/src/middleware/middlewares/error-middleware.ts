@@ -1,4 +1,4 @@
-import { Middleware } from "../../types"
+import { Middleware } from "tentales"
 
 export const errorMiddleware: Middleware = () =>
   async function actualErrorMiddleware(ctx, next) {

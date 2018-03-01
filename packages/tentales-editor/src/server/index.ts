@@ -1,4 +1,4 @@
-import { ServiceFactory } from "tentales/src/types"
+import { ServiceFactory } from "tentales"
 
 export const editor: ServiceFactory = (
   /* dataConfig */ _,
