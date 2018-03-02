@@ -67,14 +67,14 @@ declare module "tentales" {
   /**
    * Middlewares
    */
+  interface MiddlewareProps {
+    services: Services
+    log: Log
+    config: Config
+  }
+
   export interface Middleware {
-    (
-      {
-        services,
-        log,
-        config,
-      }: { services: Services; log: Log; config: Config },
-    ): Koa.Middleware
+    (props: MiddlewareProps): Koa.Middleware
     displayName?: string
   }
 

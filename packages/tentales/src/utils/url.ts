@@ -1,3 +1,5 @@
+import { startsWith } from "ramda"
+
 export function isServiceRoute(url: string): boolean {
-  return url.startsWith("/tt/") // TODO, Move to config
+  return startsWith("/tt/", url) // TODO, Move to config
 }
