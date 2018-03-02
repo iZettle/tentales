@@ -1,6 +1,7 @@
 import fetch from "node-fetch"
 import { createLog } from "tentales-log"
 import { Action, ServiceConfig, ServiceCaller, Config } from "tentales"
+import { mintToken } from "../utils/token"
 
 // tslint:disable-next-line:no-any
 function getServiceConfig(serviceName: string, config: any): ServiceConfig {
@@ -8,6 +9,8 @@ function getServiceConfig(serviceName: string, config: any): ServiceConfig {
 }
 
 export function createServiceCallers(config: Config): ServiceCaller[] {
+  const bearer = `Bearer ${mintToken(config.auth.serverSecret)}`
+
   return Object.keys(config.services).map(serviceName => {
     const log = createLog("TT")
     const serviceConfig = getServiceConfig(serviceName, config)
@@ -22,6 +25,7 @@ export function createServiceCallers(config: Config): ServiceCaller[] {
       const response = await fetch(`${host}${serviceConfig.path}`, {
         method: "POST",
         headers: {
+          Authorization: bearer,
           Accept: "application/json",
           "Content-Type": "application/json",
         },

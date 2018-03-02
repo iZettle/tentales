@@ -54,6 +54,7 @@ declare module "tentales" {
     | "beforeRenderMiddleware"
     | "renderMiddleware"
     | "afterRenderMiddleware"
+    | "protectServiceRoutesMiddleware"
     | "beforeServices"
     | "rendererService"
     | "editorService"
@@ -66,8 +67,14 @@ declare module "tentales" {
   /**
    * Middlewares
    */
+  interface MiddlewareProps {
+    services: Services
+    log: Log
+    config: Config
+  }
+
   export interface Middleware {
-    ({ services, log }: { services: Services; log: Log }): Koa.Middleware
+    (props: MiddlewareProps): Koa.Middleware
     displayName?: string
   }
 
@@ -87,6 +94,9 @@ declare module "tentales" {
   export interface Config {
     port: number
     public: boolean
+    auth: {
+      serverSecret: string | Buffer
+    }
     reactComponentsDirectory: string
     services: { [K in ServiceName]: ServiceConfig }
     hooks?: {

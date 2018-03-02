@@ -1,22 +1,22 @@
 import { Hook } from "tentales"
-
-import bodyParser from "koa-bodyparser"
+import { bodyParserMiddleware } from "./middlewares/body-parser-middleware"
 import { renderMiddleware } from "./middlewares/render-middleware"
 import { fourOhFourMiddleware } from "./middlewares/four-oh-four-middleware"
 import { errorMiddleware } from "./middlewares/error-middleware"
-
-const bodyParserMiddleware = () => bodyParser()
+import { protectServiceRoutesMiddleware } from "./middlewares/protect-service-routes-middelware"
 
 const DEFAULT_HOOKS_PUBLIC: Hook[] = [
   ["errorMiddleware", [errorMiddleware]],
   ["bodyParserMiddleware", [bodyParserMiddleware]],
   ["renderMiddleware", [renderMiddleware]],
+  ["protectServiceRoutesMiddleware", [protectServiceRoutesMiddleware]],
   ["fourOhFourMiddleware", [fourOhFourMiddleware]],
 ]
 
 const DEFAULT_HOOKS_SERVICE: Hook[] = [
   ["errorMiddleware", [errorMiddleware]],
   ["bodyParserMiddleware", [bodyParserMiddleware]],
+  ["protectServiceRoutesMiddleware", [protectServiceRoutesMiddleware]],
 ]
 
 export function getDefaultHooks({ isPublic }: { isPublic: boolean }): Hook[] {

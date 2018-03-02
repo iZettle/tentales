@@ -1,16 +1,24 @@
 import { createLog } from "tentales-log"
 import Koa from "koa"
-import { Middleware, ServiceName, HookName, Services, Hook } from "tentales"
+import {
+  Middleware,
+  ServiceName,
+  HookName,
+  Services,
+  Hook,
+  Config,
+} from "tentales"
 
 const HOOKS_ORDER = [
   "beforeErrorMiddleware",
   "errorMiddleware",
   "first",
-  "beforeBodyParserMiddleware",
-  "bodyParserMiddleware",
   "beforeRenderMiddleware",
   "renderMiddleware",
   "afterRenderMiddleware",
+  "beforeBodyParserMiddleware",
+  "bodyParserMiddleware",
+  "protectServiceRoutesMiddleware",
   "beforeServices",
   "rendererService",
   "editorService",
@@ -25,10 +33,12 @@ export function initiateMiddlewares({
   hooks,
   server,
   services,
+  config,
 }: {
   hooks: Hook[]
   server: Koa
   services: Services
+  config: Config
 }): void {
   const log = createLog("TT")
   const uniqueHooks = new Map()
@@ -56,6 +66,7 @@ export function initiateMiddlewares({
         middleware({
           services,
           log: mwLog,
+          config,
         }),
       )
       mwLog.verbose("Started")
