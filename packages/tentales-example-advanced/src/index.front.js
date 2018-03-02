@@ -4,6 +4,7 @@ const path = require("path")
 tenTales({
   port: 4000,
   public: true,
+  serverSecret: process.env.SERVER_SECRET || "",
   reactComponentsDirectory: path.join(__dirname, "components"),
   services: {
     renderer: {

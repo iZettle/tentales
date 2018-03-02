@@ -19,6 +19,7 @@ export function tenTales(config: Config): void {
 
   initiateMiddlewares({
     server,
+    config,
     services: convertServiceMethodsToServices(serviceCallers),
     hooks: [
       ...getDefaultHooks({ isPublic: config.public }),
