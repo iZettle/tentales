@@ -1,0 +1,1 @@
+export { tenTales } from "tentales"
