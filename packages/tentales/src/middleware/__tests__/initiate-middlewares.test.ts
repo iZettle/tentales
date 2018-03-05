@@ -23,8 +23,7 @@ test("It initiates middlewares", async () => {
   }
   const logger = () => logMock
 
-  const serverUseFn = jest.fn()
-  server.use = serverUseFn
+  server.use = jest.fn()
 
   initiateMiddlewares({
     logger,
@@ -34,7 +33,7 @@ test("It initiates middlewares", async () => {
     hooks: serviceHooks,
   })
 
-  expect(serverUseFn).toHaveBeenCalledTimes(3)
+  expect(server.use).toHaveBeenCalledTimes(3)
   expect(logMock.verbose).toHaveBeenCalledTimes(3)
   expect(logMock.verbose).toHaveBeenCalledWith("Started")
 })
