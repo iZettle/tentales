@@ -76,7 +76,6 @@
     "ts-node-dev": "^1.0.0-pre.16",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.8.0",
-    "typescript": "^2.7.1",
-    "yarn-run-all": "^3.1.1"
+    "typescript": "^2.7.1"
   }
 }
