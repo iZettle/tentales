@@ -1,5 +1,3 @@
-/* tslint:disable no-empty */
-
 import { Middleware } from "tentales"
 import { createTestMw } from "./create-test-mw"
 

@@ -1,4 +1,4 @@
-/* tslint:disable no-any no-empty */
+/* tslint:disable no-any */
 
 import Koa from "koa"
 import supertest from "supertest"

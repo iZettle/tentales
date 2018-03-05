@@ -1,5 +1,3 @@
-/* tslint:disable no-any no-empty */
-
 import Koa from "koa"
 import supertest from "supertest"
 import { protectServiceRoutesMiddleware } from "../protect-service-routes-middelware"
