@@ -18,6 +18,7 @@ export function tenTales(config: Config): void {
   logRemoteServices(serviceCallers)
 
   initiateMiddlewares({
+    logger: createLog,
     server,
     config,
     services: convertServiceMethodsToServices(serviceCallers),

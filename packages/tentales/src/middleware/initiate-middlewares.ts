@@ -1,4 +1,4 @@
-import { createLog } from "tentales-log"
+import { Log } from "tentales-log"
 import Koa from "koa"
 import {
   Middleware,
@@ -30,17 +30,19 @@ const HOOKS_ORDER = [
 ] as HookName[]
 
 export function initiateMiddlewares({
+  logger,
   hooks,
   server,
   services,
   config,
 }: {
+  logger: (x: string) => Log
   hooks: Hook[]
   server: Koa
   services: Services
   config: Config
 }): void {
-  const log = createLog("TT")
+  const log = logger("TT")
   const uniqueHooks = new Map()
 
   hooks.forEach(([name, functions]) => {
@@ -61,7 +63,7 @@ export function initiateMiddlewares({
     hook.forEach((middleware: Middleware, index: number) => {
       const series = index > 0 ? `-${index + 1}` : ""
       const mwName = middleware.displayName || `${mwOrderName}${series}`
-      const mwLog = createLog(`${mwName} middleware`)
+      const mwLog = logger(`${mwName} middleware`)
       server.use(
         middleware({
           services,
