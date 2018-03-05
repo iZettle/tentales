@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`It gets private default hooks 1`] = `
+Array [
+  Array [
+    "errorMiddleware",
+    Array [
+      [Function],
+    ],
+  ],
+  Array [
+    "bodyParserMiddleware",
+    Array [
+      [Function],
+    ],
+  ],
+  Array [
+    "protectServiceRoutesMiddleware",
+    Array [
+      [Function],
+    ],
+  ],
+]
+`;
+
+exports[`It gets public default hooks 1`] = `
+Array [
+  Array [
+    "errorMiddleware",
+    Array [
+      [Function],
+    ],
+  ],
+  Array [
+    "bodyParserMiddleware",
+    Array [
+      [Function],
+    ],
+  ],
+  Array [
+    "renderMiddleware",
+    Array [
+      [Function],
+    ],
+  ],
+  Array [
+    "protectServiceRoutesMiddleware",
+    Array [
+      [Function],
+    ],
+  ],
+  Array [
+    "fourOhFourMiddleware",
+    Array [
+      [Function],
+    ],
+  ],
+]
+`;

@@ -15,9 +15,13 @@ export function tenTales(config: Config): void {
   const serviceCallers = createServiceCallers(config)
   const serviceHooks = createServiceHooks(serviceCallers)
 
-  logRemoteServices(serviceCallers)
+  logRemoteServices({
+    logger: createLog,
+    serviceCallers,
+  })
 
   initiateMiddlewares({
+    logger: createLog,
     server,
     config,
     services: convertServiceMethodsToServices(serviceCallers),

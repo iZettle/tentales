@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`It converts service callers 1`] = `
+Object {
+  "data": [Function],
+  "editor": [Function],
+  "renderer": [Function],
+}
+`;

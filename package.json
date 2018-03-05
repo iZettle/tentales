@@ -1,5 +1,5 @@
 {
-  "name": "tentales",
+  "name": "tentales-monorepo",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -16,6 +16,8 @@
     "lint": "yarn lint:ts && yarn lint:js",
     "lint:ts": "tslint --project .",
     "lint:js": "eslint packages",
+    "test": "LOG_LEVEL=silent yarn jest --forceExit",
+    "test:watch": "LOG_LEVEL=silent yarn jest --watch",
     "format": "prettier --write 'packages/**/*.{js,ts,json}'",
     "precommit": "lint-staged",
     "nuke": "yarn nuke:dist",
@@ -47,12 +49,21 @@
     "packages/tentales-router",
     "packages/tentales-router-plugin-https-only"
   ],
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "/__tests__/.*\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+  },
   "devDependencies": {
+    "@types/jest": "^22.1.4",
     "@types/koa": "^2.0.44",
     "@types/koa-bodyparser": "^4.2.0",
     "@types/node": "^9.4.6",
     "@types/node-fetch": "^1.6.7",
     "@types/ramda": "^0.25.18",
+    "@types/supertest": "^2.0.4",
     "babel-eslint": "^8.2.1",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
@@ -62,11 +73,13 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
     "husky": "^0.14.3",
-    "jest": "^22.1.4",
+    "jest": "^22.4.2",
     "lint-staged": "^6.1.0",
     "nodemon": "^1.14.11",
     "prettier": "^1.10.2",
     "rimraf": "^2.6.2",
+    "supertest": "^3.0.0",
+    "ts-jest": "^22.4.1",
     "ts-node": "^4.1.0",
     "ts-node-dev": "^1.0.0-pre.16",
     "tslint": "^5.9.1",

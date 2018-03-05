@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`It creates service callers 1`] = `
+Array [
+  Object {
+    "config": Object {
+      "host": "this",
+      "path": "/tt/renderer",
+    },
+    "func": [Function],
+    "name": "renderer",
+  },
+  Object {
+    "config": Object {
+      "host": "this",
+      "path": "/tt/data",
+    },
+    "func": [Function],
+    "name": "data",
+  },
+  Object {
+    "config": Object {
+      "host": "this",
+      "path": "/tt/editor",
+    },
+    "func": [Function],
+    "name": "editor",
+  },
+]
+`;

@@ -67,7 +67,7 @@ declare module "tentales" {
   /**
    * Middlewares
    */
-  interface MiddlewareProps {
+  export interface MiddlewareProps {
     services: Services
     log: Log
     config: Config
