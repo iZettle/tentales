@@ -4,6 +4,7 @@ import Koa from "koa"
 import supertest from "supertest"
 import { errorMiddleware } from "./error-middleware"
 import { createTestMw, createTestMwConfig } from "./__test-helpers__"
+import { AuthError } from "../errors"
 
 describe("Incoming request", () => {
   test("It does not do anything on the way down", async () => {
@@ -133,6 +134,82 @@ describe("Outgoing request", () => {
     done()
   })
 
-  test.skip("It doesn't output non-exposed error messages", async done => {})
-  test.skip("It understands class based custom errors", async done => {})
+  test("It doesn't output non-exposed error messages", async done => {
+    // Setup
+    const emitStub = jest.fn()
+    const customError = new Error("Should not be seen") as any
+    customError.status = 500
+    customError.expose = false
+    const expectedError = customError
+    const app = new Koa()
+    app.use(
+      createTestMw({
+        fn: ctx => {
+          ctx.app.emit = emitStub
+        },
+      }),
+    )
+    app.use(errorMiddleware(createTestMwConfig()))
+    app.use(
+      createTestMw({
+        fn: () => {
+          throw customError
+        },
+      }),
+    )
+    const request = supertest.agent(app.listen())
+
+    // Perform
+    await request
+      .get(`/foo`)
+      .expect(500)
+      .expect((res: any) => {
+        expect(res.res.text).toEqual('{ "error": "Unknown error" }')
+      })
+
+    expect(emitStub).toHaveBeenCalledTimes(1)
+    expect(emitStub).toHaveBeenCalledWith(
+      expect.anything(),
+      expectedError,
+      expect.anything(),
+    )
+
+    done()
+  })
+
+  test("It understands class based custom errors", async done => {
+    // Setup
+    const emitStub = jest.fn()
+    const customError = new AuthError()
+    const expectedError = customError
+    const app = new Koa()
+    app.use(
+      createTestMw({
+        fn: ctx => {
+          ctx.app.emit = emitStub
+        },
+      }),
+    )
+    app.use(errorMiddleware(createTestMwConfig()))
+    app.use(
+      createTestMw({
+        fn: () => {
+          throw customError
+        },
+      }),
+    )
+    const request = supertest.agent(app.listen())
+
+    // Perform
+    await request
+      .get(`/foo`)
+      .expect(401)
+      .expect((res: any) => {
+        expect(res.res.text).toEqual('{ "error": "Auth error" }')
+      })
+
+    expect(emitStub).toHaveBeenCalledTimes(0)
+
+    done()
+  })
 })
