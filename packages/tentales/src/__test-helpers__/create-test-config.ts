@@ -1,5 +1,14 @@
 /* tslint:disable no-empty */
 
+import { Middleware } from "tentales"
+
+export const testMiddleware: Middleware = () =>
+  async function actualErrorMiddleware(ctx, next) {
+    await next()
+  }
+
+testMiddleware.displayName = "Test"
+
 export function createTestConfig() {
   return {
     port: 12345,
@@ -24,8 +33,8 @@ export function createTestConfig() {
     },
     hooks: {
       middlewares: {
-        beforeRenderMiddleware: [() => {}, () => {}],
-        rendererService: [() => {}],
+        beforeRenderMiddleware: [testMiddleware, testMiddleware],
+        rendererService: [testMiddleware],
       },
     },
   }
