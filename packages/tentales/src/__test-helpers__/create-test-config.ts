@@ -1,12 +1,9 @@
 /* tslint:disable no-empty */
 
 import { Middleware } from "tentales"
+import { createTestMw } from "./create-test-mw"
 
-export const testMiddleware: Middleware = () =>
-  async function actualErrorMiddleware(ctx, next) {
-    await next()
-  }
-
+export const testMiddleware: Middleware = () => createTestMw()
 testMiddleware.displayName = "Test"
 
 export function createTestConfig() {
