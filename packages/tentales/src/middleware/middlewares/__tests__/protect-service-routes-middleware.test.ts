@@ -41,7 +41,7 @@ describe("Incoming request", () => {
       .expect(401, "Auth error")
   })
 
-  test("It let the request through if correct JWT is given", async () => {
+  test("It lets the request through if correct JWT is given", async () => {
     // Setup
     const app = new Koa()
     app.use(protectServiceRoutesMiddleware(createTestMwConfig()))
@@ -54,5 +54,18 @@ describe("Incoming request", () => {
       .get(`/tt/renderer`)
       .set("Authorization", `Bearer ${token}`)
       .expect(200, "Next body")
+  })
+
+  test("It lets the request through if no auth secret is specified", async () => {
+    // Setup
+    const app = new Koa()
+    const mwConfig = createTestMwConfig()
+    delete mwConfig.config.auth
+    app.use(protectServiceRoutesMiddleware(mwConfig))
+    app.use(createTestMw())
+    const request = supertest.agent(app.listen())
+
+    // Perform
+    return request.get(`/tt/renderer`).expect(200, "Next body")
   })
 })
