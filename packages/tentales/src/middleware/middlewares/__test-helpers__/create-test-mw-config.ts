@@ -5,7 +5,7 @@ export function createTestMwConfig() {
     port: 12345,
     public: true,
     auth: {
-      serverSecret: "",
+      serverSecret: "test-secret",
     },
     reactComponentsDirectory: "",
     services: {
