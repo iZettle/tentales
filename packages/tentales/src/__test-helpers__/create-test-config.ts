@@ -1,7 +1,5 @@
-import { always } from "ramda"
-
-export function createTestMwConfig() {
-  const ttConfig = {
+export function createTestConfig() {
+  return {
     port: 12345,
     public: true,
     auth: {
@@ -25,21 +23,5 @@ export function createTestMwConfig() {
     hooks: {
       middlewares: {},
     },
-  }
-
-  return {
-    services: {
-      renderer: async () => await {},
-      data: async () => await {},
-      editor: async () => await {},
-    },
-    log: {
-      silly: always(null),
-      verbose: always(null),
-      info: always(null),
-      warn: always(null),
-      error: always(null),
-    },
-    config: ttConfig,
   }
 }

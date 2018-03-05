@@ -1,7 +1,7 @@
 import Koa from "koa"
 import supertest from "supertest"
 import { bodyParserMiddleware } from "../body-parser-middleware"
-import { createTestMw, createTestMwConfig } from "../__test-helpers__"
+import { createTestMw, createTestMwConfig } from "../../../__test-helpers__"
 
 describe("Incoming request", () => {
   test("It does parse the body", async done => {
