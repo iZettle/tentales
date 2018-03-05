@@ -2,9 +2,9 @@
 
 import Koa from "koa"
 import supertest from "supertest"
-import { errorMiddleware } from "./error-middleware"
-import { createTestMw, createTestMwConfig } from "./__test-helpers__"
-import { AuthError } from "../errors"
+import { errorMiddleware } from "../error-middleware"
+import { createTestMw, createTestMwConfig } from "../__test-helpers__"
+import { AuthError } from "../../errors"
 
 describe("Incoming request", () => {
   test("It does not do anything on the way down", async () => {

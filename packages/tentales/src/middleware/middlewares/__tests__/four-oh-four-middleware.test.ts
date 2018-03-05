@@ -2,8 +2,8 @@
 
 import Koa from "koa"
 import supertest from "supertest"
-import { fourOhFourMiddleware } from "./four-oh-four-middleware"
-import { createTestMw, createTestMwConfig } from "./__test-helpers__"
+import { fourOhFourMiddleware } from "../four-oh-four-middleware"
+import { createTestMw, createTestMwConfig } from "../__test-helpers__"
 
 describe("Outgoing request", () => {
   test("It answers with a 404", async () => {

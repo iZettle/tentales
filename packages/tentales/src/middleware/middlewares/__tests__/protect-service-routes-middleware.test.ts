@@ -2,8 +2,8 @@
 
 import Koa from "koa"
 import supertest from "supertest"
-import { protectServiceRoutesMiddleware } from "./protect-service-routes-middelware"
-import { createTestMw, createTestMwConfig } from "./__test-helpers__"
+import { protectServiceRoutesMiddleware } from "../protect-service-routes-middelware"
+import { createTestMw, createTestMwConfig } from "../__test-helpers__"
 import { sign } from "jsonwebtoken"
 
 describe("Incoming request", () => {
