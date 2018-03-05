@@ -1,3 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`It create config hooks 1`] = `Array []`;
+exports[`It create config hooks 1`] = `
+Array [
+  Array [
+    "beforeRenderMiddleware",
+    Array [
+      [Function],
+      [Function],
+    ],
+  ],
+  Array [
+    "rendererService",
+    Array [
+      [Function],
+    ],
+  ],
+]
+`;

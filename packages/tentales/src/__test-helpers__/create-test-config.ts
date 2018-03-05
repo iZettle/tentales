@@ -1,3 +1,5 @@
+/* tslint:disable no-empty */
+
 export function createTestConfig() {
   return {
     port: 12345,
@@ -21,7 +23,10 @@ export function createTestConfig() {
       },
     },
     hooks: {
-      middlewares: {},
+      middlewares: {
+        beforeRenderMiddleware: [() => {}, () => {}],
+        rendererService: [() => {}],
+      },
     },
   }
 }
