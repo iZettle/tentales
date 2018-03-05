@@ -13,12 +13,11 @@
       "LOG_LEVEL=silly SERVER_SECRET=superSecret nodemon --ext ts,js --exec ts-node ./packages/tentales-example-advanced/src/index.front.js",
     "dev:advanced-back":
       "LOG_LEVEL=silly SERVER_SECRET=superSecret nodemon --ext ts,js --exec ts-node ./packages/tentales-example-advanced/src/index.back.js",
-    "lint": "yarn lint:ts && yarn lint:js",
+    "lint": "yarn lint:ts",
     "lint:ts": "tslint --project .",
-    "lint:js": "eslint packages",
     "test": "LOG_LEVEL=silent yarn jest --forceExit",
     "test:watch": "LOG_LEVEL=silent yarn jest --watch",
-    "format": "prettier --write 'packages/**/*.{js,ts,json}'",
+    "format": "prettier --write 'packages/**/*.{ts,json}'",
     "precommit": "lint-staged",
     "nuke": "yarn nuke:dist",
     "nuke:dist": "rimraf 'packages/*/dist'"
@@ -29,7 +28,6 @@
     "trailingComma": "all"
   },
   "lint-staged": {
-    "*.js": ["prettier --write", "eslint --fix --cache", "git add"],
     "*.ts": ["prettier --write", "tslint --fix", "git add"],
     "*.json": ["prettier --write", "git add"]
   },
@@ -53,18 +51,10 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "/__tests__/.*\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+    "testRegex": "/__tests__/.*\\.tsx?$",
+    "moduleFileExtensions": ["ts", "tsx", "json", "js"]
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "eslint": "^4.16.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jest": "^21.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.6.1",
     "husky": "^0.14.3",
     "jest": "^22.4.2",
     "lint-staged": "^6.1.0",
