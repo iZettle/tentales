@@ -43,14 +43,7 @@ describe("Outgoing request", () => {
     const request = supertest.agent(app.listen())
 
     // Perform
-    await request
-      .get(`/foo`)
-      .expect(500)
-      .expect((res: any) => {
-        expect(res.res.text).toEqual(
-          expect.stringContaining('{ "error": "Unknown error" }'),
-        )
-      })
+    await request.get(`/foo`).expect(500, '{ "error": "Unknown error" }')
 
     expect(emitStub).toHaveBeenCalledTimes(1)
 
@@ -79,12 +72,7 @@ describe("Outgoing request", () => {
     const request = supertest.agent(app.listen())
 
     // Perform
-    await request
-      .get(`/foo`)
-      .expect(500)
-      .expect((res: any) => {
-        expect(res.res.text).toEqual('{ "error": "Unknown error" }')
-      })
+    await request.get(`/foo`).expect(500, '{ "error": "Unknown error" }')
 
     expect(emitStub).toHaveBeenCalledTimes(1)
 
@@ -117,12 +105,7 @@ describe("Outgoing request", () => {
     const request = supertest.agent(app.listen())
 
     // Perform
-    await request
-      .get(`/foo`)
-      .expect(500)
-      .expect((res: any) => {
-        expect(res.res.text).toEqual('{ "error": "Custom error message" }')
-      })
+    await request.get(`/foo`).expect(500, '{ "error": "Custom error message" }')
 
     expect(emitStub).toHaveBeenCalledTimes(1)
     expect(emitStub).toHaveBeenCalledWith(
@@ -160,12 +143,7 @@ describe("Outgoing request", () => {
     const request = supertest.agent(app.listen())
 
     // Perform
-    await request
-      .get(`/foo`)
-      .expect(500)
-      .expect((res: any) => {
-        expect(res.res.text).toEqual('{ "error": "Unknown error" }')
-      })
+    await request.get(`/foo`).expect(500, '{ "error": "Unknown error" }')
 
     expect(emitStub).toHaveBeenCalledTimes(1)
     expect(emitStub).toHaveBeenCalledWith(
@@ -201,12 +179,7 @@ describe("Outgoing request", () => {
     const request = supertest.agent(app.listen())
 
     // Perform
-    await request
-      .get(`/foo`)
-      .expect(401)
-      .expect((res: any) => {
-        expect(res.res.text).toEqual('{ "error": "Auth error" }')
-      })
+    await request.get(`/foo`).expect(401, '{ "error": "Auth error" }')
 
     expect(emitStub).toHaveBeenCalledTimes(0)
 
