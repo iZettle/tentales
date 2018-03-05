@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev:simple":
-      "LOG_LEVEL=silly SERVER_SECRET=superSecret ts-node-dev --notify=false packages/tentales-example-simple/src/index.ts",
+      "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-simple/src/index.ts",
     "dev:simple:check":
       "tsc -p packages/tentales-example-simple -w --pretty --strict --noEmit",
     "dev:advanced-front":

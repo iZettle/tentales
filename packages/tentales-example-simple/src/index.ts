@@ -17,7 +17,7 @@ tenTales({
   port: 4000,
   public: true,
   auth: {
-    serverSecret: process.env.SERVER_SECRET || "",
+    serverSecret: process.env.SERVER_SECRET,
   },
   reactComponentsDirectory: path.join(__dirname, "components"),
   services: {

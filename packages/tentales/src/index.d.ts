@@ -94,8 +94,8 @@ declare module "tentales" {
   export interface Config {
     port: number
     public: boolean
-    auth: {
-      serverSecret: string | Buffer
+    auth?: {
+      serverSecret?: string | Buffer
     }
     reactComponentsDirectory: string
     services: { [K in ServiceName]: ServiceConfig }
