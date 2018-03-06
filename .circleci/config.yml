@@ -1,0 +1,84 @@
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    - image: circleci/node:8.9.3
+
+version: 2
+jobs:
+  checkout_code:
+    <<: *defaults
+    steps:
+      - checkout
+      - save_cache:
+          key: src-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/app
+
+  bundle_dependencies:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - src-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - yarn-v1-{{ checksum "yarn.lock" }}
+            - yarn-v1-
+      - run:
+          name: Install NPM dependencies
+          command: yarn install
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/app/node_modules
+
+  jest:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - src-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - yarn-v1-{{ checksum "yarn.lock" }}
+            - yarn-v1-
+      - run:
+          name: Test
+          command: yarn test -ci --coverage --testResultsProcessor=jest-junit
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/coverage
+          prefix: coverage
+    
+  tslint:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - src-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - yarn-v1-{{ checksum "yarn.lock" }}
+            - yarn-v1-
+      - run:
+          name: Lint
+          command: yarn lint:ts --formatters-dir node_modules/tslint-junit-formatter/formatters --format junit -o reports/junit/tslint-results.xml 
+      - store_test_results:
+          path: reports/junit
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+      - bundle_dependencies:
+          context: org-global
+          requires:
+            - checkout_code
+      - jest:
+          requires:
+            - bundle_dependencies
+      - tslint:
+          requires:
+            - bundle_dependencies
