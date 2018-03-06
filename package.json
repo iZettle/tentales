@@ -52,7 +52,8 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "/__tests__/.*\\.tsx?$",
-    "moduleFileExtensions": ["ts", "tsx", "json", "js"]
+    "moduleFileExtensions": ["ts", "tsx", "json", "js"],
+    "coverageDirectory": "<rootDir>/reports/coverage"
   },
   "jest-junit": {
     "suiteName": "tentales",
