@@ -20,7 +20,7 @@ export function createServiceCallers(config: Config): ServiceCaller[] {
     | Buffer
     | undefined
 
-  if (secret !== undefined) {
+  if (secret) {
     headers.append("Authorization", `Bearer ${mintToken(secret)}`)
   }
 
