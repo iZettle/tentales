@@ -7,34 +7,51 @@ import { fourOhFourMiddleware } from "./middlewares/four-oh-four-middleware"
 import { errorMiddleware } from "./middlewares/error-middleware"
 import { protectServiceRoutesMiddleware } from "./middlewares/protect-service-routes-middelware"
 
-const DEFAULT_HOOKS_PUBLIC = (log: Log, config: Config): Hook[] => {
-  const middlewares: Hook[] = [
+const getProtectServiceRoutesMiddleware = ({
+  log,
+  config,
+}: {
+  log: Log
+  config: Config
+}): Hook | undefined => {
+  const secret = path(["auth", "serverSecret"], config)
+
+  if (secret) {
+    return ["protectServiceRoutesMiddleware", [protectServiceRoutesMiddleware]]
+  } else {
+    log.warn(
+      "Auth secret not set; this will disable authentication checks for all services.",
+    )
+  }
+}
+
+const DEFAULT_HOOKS_PUBLIC = ({
+  log,
+  config,
+}: {
+  log: Log
+  config: Config
+}): Hook[] =>
+  [
     ["errorMiddleware", [errorMiddleware]],
     ["bodyParserMiddleware", [bodyParserMiddleware]],
     ["renderMiddleware", [renderMiddleware]],
-  ]
+    getProtectServiceRoutesMiddleware({ log, config }),
+    ["fourOhFourMiddleware", [fourOhFourMiddleware]],
+  ].filter(Boolean) as Hook[]
 
-  if (path(["auth", "serverSecret"], config)) {
-    middlewares.push([
-      "protectServiceRoutesMiddleware",
-      [protectServiceRoutesMiddleware],
-    ])
-  } else {
-    log.warn(
-      "Authorization secret not set; no authorization will be carried out.",
-    )
-  }
-
-  middlewares.push(["fourOhFourMiddleware", [fourOhFourMiddleware]])
-
-  return middlewares
-}
-
-const DEFAULT_HOOKS_SERVICE: Hook[] = [
-  ["errorMiddleware", [errorMiddleware]],
-  ["bodyParserMiddleware", [bodyParserMiddleware]],
-  ["protectServiceRoutesMiddleware", [protectServiceRoutesMiddleware]],
-]
+const DEFAULT_HOOKS_SERVICE = ({
+  log,
+  config,
+}: {
+  log: Log
+  config: Config
+}): Hook[] =>
+  [
+    ["errorMiddleware", [errorMiddleware]],
+    ["bodyParserMiddleware", [bodyParserMiddleware]],
+    getProtectServiceRoutesMiddleware({ log, config }),
+  ].filter(Boolean) as Hook[]
 
 export function getDefaultHooks({
   log,
@@ -44,6 +61,6 @@ export function getDefaultHooks({
   config: Config
 }): Hook[] {
   return config.public
-    ? DEFAULT_HOOKS_PUBLIC(log, config)
-    : DEFAULT_HOOKS_SERVICE
+    ? DEFAULT_HOOKS_PUBLIC({ log, config })
+    : DEFAULT_HOOKS_SERVICE({ log, config })
 }
