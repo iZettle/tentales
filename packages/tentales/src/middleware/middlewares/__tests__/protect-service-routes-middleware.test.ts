@@ -55,17 +55,4 @@ describe("Incoming request", () => {
       .set("Authorization", `Bearer ${token}`)
       .expect(200, "Next body")
   })
-
-  test("It lets the request through if no auth secret is specified", async () => {
-    // Setup
-    const app = new Koa()
-    const mwConfig = createTestMwConfig()
-    delete mwConfig.config.auth
-    app.use(protectServiceRoutesMiddleware(mwConfig))
-    app.use(createTestMw())
-    const request = supertest.agent(app.listen())
-
-    // Perform
-    return request.get(`/tt/renderer`).expect(200, "Next body")
-  })
 })

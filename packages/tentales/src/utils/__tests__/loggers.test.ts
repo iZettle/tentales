@@ -1,10 +1,9 @@
 import { logRemoteServices } from "../loggers"
+import { createTestLogger } from "../../__test-helpers__"
 
 describe("Loggers", () => {
   test("It logs remote service", async () => {
-    const loggerMock = {
-      info: jest.fn(),
-    }
+    const loggerMock = createTestLogger()
     const mock = {
       serviceCallers: [
         {

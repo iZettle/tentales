@@ -1,6 +1,6 @@
 import Koa from "koa"
 
-import { createTestConfig } from "../../__test-helpers__"
+import { createTestConfig, createTestLogger } from "../../__test-helpers__"
 import { initiateMiddlewares } from "../initiate-middlewares"
 import { createServiceCallers } from "../../service/create-service-callers"
 import { createServiceHooks } from "../create-service-hooks"
@@ -14,13 +14,7 @@ test("It initiates middlewares", async () => {
   const serviceHooks = createServiceHooks(serviceCallers)
 
   // Mock
-  const logMock = {
-    silly: jest.fn(),
-    verbose: jest.fn(),
-    info: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn(),
-  }
+  const logMock = createTestLogger()
   const logger = () => logMock
 
   server.use = jest.fn()
