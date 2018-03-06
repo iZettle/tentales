@@ -20,11 +20,6 @@ const getProtectServiceRoutesHook = ({
 
   if (secret) {
     return ["protectServiceRoutesMiddleware", [protectServiceRoutesMiddleware]]
-  } else if (process.env.NODE_ENV === "production") {
-    log.error(
-      "Trying to run without authentication in production mode. You need to ensure that SERVER_SECRET is set in your environment.",
-    )
-    process.exit(1)
   } else {
     log.warn(
       "Auth secret not set; this will disable authentication checks for all services.",
