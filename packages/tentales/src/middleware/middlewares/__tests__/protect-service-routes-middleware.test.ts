@@ -41,7 +41,7 @@ describe("Incoming request", () => {
       .expect(401, "Auth error")
   })
 
-  test("It let the request through if correct JWT is given", async () => {
+  test("It lets the request through if correct JWT is given", async () => {
     // Setup
     const app = new Koa()
     app.use(protectServiceRoutesMiddleware(createTestMwConfig()))

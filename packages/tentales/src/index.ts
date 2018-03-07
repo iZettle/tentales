@@ -26,7 +26,7 @@ export function tenTales(config: Config): void {
     config,
     services: convertServiceMethodsToServices(serviceCallers),
     hooks: [
-      ...getDefaultHooks({ isPublic: config.public }),
+      ...getDefaultHooks({ log, config }),
       ...serviceHooks,
       ...createConfigHooks(config),
     ],
