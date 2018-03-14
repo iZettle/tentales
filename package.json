@@ -56,7 +56,8 @@
     },
     "testRegex": "/__tests__/.*\\.tsx?$",
     "moduleFileExtensions": ["ts", "tsx", "json", "js"],
-    "coverageDirectory": "<rootDir>/reports/coverage"
+    "coverageDirectory": "<rootDir>/reports/coverage",
+    "modulePathIgnorePatterns": ["dist"]
   },
   "jest-junit": {
     "suiteName": "tentales",
