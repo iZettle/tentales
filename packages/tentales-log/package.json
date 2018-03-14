@@ -6,5 +6,6 @@
   "dependencies": {
     "npmlog": "^4.1.2",
     "ramda": "^0.25.0"
-  }
+  },
+  "devDependencies": {}
 }

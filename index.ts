@@ -1,1 +1,0 @@
-export { tenTales } from "tentales"
