@@ -42,7 +42,7 @@
     "paths": {
       "tentales": ["packages/tentales/src"],
       "tentales-data": ["packages/tentales-data/src"],
-      "tentales-editor": ["packages/tentales-editor/src/server"],
+      "tentales-editor": ["packages/tentales-editor/src"],
       "tentales-example-advanced": ["packages/tentales-example-advanced/src"],
       "tentales-example-simple": ["packages/tentales-example-simple/src"],
       "tentales-log": ["packages/tentales-log/src"],
