@@ -4,8 +4,14 @@ const pathModule = require("path")
 const FILES_TO_COPY = ["README.md", "package.json"]
 
 const BUILD_DIR = pathModule.join(__dirname, "..", "dist")
-const BUILD_PACKAGES_DIR = pathModule.join(__dirname, "..", "dist", "packages")
 const SRC_PACKAGES_DIR = pathModule.join(__dirname, "..", "packages")
+
+function readDir(dir) {
+  return fs
+    .readdirSync(dir)
+    .map(path => pathModule.join(dir, path))
+    .filter(path => fs.statSync(path).isDirectory())
+}
 
 /**
  * Just some safeguarding, making sure all directories
@@ -14,7 +20,6 @@ const SRC_PACKAGES_DIR = pathModule.join(__dirname, "..", "packages")
 function checkDirectoriesExists() {
   ;[
     [BUILD_DIR, "Build directory"],
-    [BUILD_PACKAGES_DIR, "Build packages directory"],
     [SRC_PACKAGES_DIR, "Source packages directory"],
   ].forEach(dir => {
     try {
@@ -28,23 +33,17 @@ function checkDirectoriesExists() {
 
 /**
  * Move packages from e.g.
- * dist/packages/tentales-data/src
+ * dist/tentales-data/src
  * to
  * dist/tentales-data
  */
 function movePackagesToRoot() {
-  fs
-    .readdirSync(BUILD_PACKAGES_DIR)
-    .map(path => pathModule.join(BUILD_PACKAGES_DIR, path))
-    .forEach(packagePath => {
-      const packageSlug = last(packagePath.split("/"))
-      const moveFromPath = pathModule.join(packagePath, "src")
-      const moveToPath = pathModule.join(BUILD_DIR, packageSlug)
-      fs.moveSync(moveFromPath, moveToPath)
-      fs.rmdirSync(packagePath)
-    })
-
-  fs.rmdirSync(BUILD_PACKAGES_DIR)
+  readDir(BUILD_DIR).forEach(packagePath => {
+    const packageSlug = last(packagePath.split("/"))
+    const moveFromPath = pathModule.join(packagePath, "src")
+    const moveToPath = pathModule.join(BUILD_DIR, packageSlug)
+    fs.moveSync(moveFromPath, moveToPath)
+  })
 }
 
 /**
@@ -52,32 +51,25 @@ function movePackagesToRoot() {
  * from src to dist
  */
 function copyFilesFromSrcToDist() {
-  fs
-    .readdirSync(SRC_PACKAGES_DIR)
-    .map(slug => pathModule.join(SRC_PACKAGES_DIR, slug))
-    .filter(path => fs.statSync(path).isDirectory())
-    .forEach(path => {
-      FILES_TO_COPY.forEach(file => {
-        const packageName = last(path.split("/"))
-        const srcPath = pathModule.join(path, file)
-        const distPath = pathModule.join(BUILD_DIR, packageName, file)
-        try {
-          fs.copyFileSync(srcPath, distPath)
-        } catch (_) {
-          // Do nothing if no file exists
-        }
-      })
+  readDir(SRC_PACKAGES_DIR).forEach(path => {
+    FILES_TO_COPY.forEach(file => {
+      const packageName = last(path.split("/"))
+      const srcPath = pathModule.join(path, file)
+      const distPath = pathModule.join(BUILD_DIR, packageName, file)
+      try {
+        fs.copyFileSync(srcPath, distPath)
+      } catch (_) {
+        // Do nothing if no file exists
+      }
     })
+  })
 }
 
 /**
- * Change `main` property from ts to js in package.json
+ * Change `main` property from ts to js in package.json.
  */
 function updatePackageJson() {
-  fs
-    .readdirSync(BUILD_DIR)
-    .map(path => pathModule.join(BUILD_DIR, path))
-    .filter(path => fs.statSync(path).isDirectory())
+  readDir(BUILD_DIR)
     .map(path => pathModule.join(path, "package.json"))
     .forEach(packageJsonPath => {
       const fileContent = fs.readFileSync(packageJsonPath, { encoding: "utf8" })
