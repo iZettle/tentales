@@ -1,7 +1,11 @@
 const { last } = require("ramda")
 const fs = require("fs-extra")
 const pathModule = require("path")
-const FILES_TO_COPY = ["README.md", "package.json"]
+const FILES_TO_COPY = [
+  { from: "README.md", to: "README.md" },
+  { from: "package.json", to: "package.json" },
+  { from: "src/index.d.ts", to: "index.d.ts" },
+]
 
 const BUILD_DIR = pathModule.join(__dirname, "..", "dist")
 const SRC_PACKAGES_DIR = pathModule.join(__dirname, "..", "packages")
@@ -54,8 +58,9 @@ function copyFilesFromSrcToDist() {
   readDir(SRC_PACKAGES_DIR).forEach(path => {
     FILES_TO_COPY.forEach(file => {
       const packageName = last(path.split("/"))
-      const srcPath = pathModule.join(path, file)
-      const distPath = pathModule.join(BUILD_DIR, packageName, file)
+      const srcPath = pathModule.join(path, file.from)
+      const distPath = pathModule.join(BUILD_DIR, packageName, file.to)
+
       try {
         fs.copyFileSync(srcPath, distPath)
       } catch (_) {
