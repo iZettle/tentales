@@ -5,6 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "yarn nuke && yarn build:compile && yarn build:postbuild",
+    "build:compile": "tsc --pretty --strict",
+    "build:postbuild": "node ./bin/postbuild.js",
     "dev:simple":
       "LOG_LEVEL=silly ts-node-dev --notify=false packages/tentales-example-simple/src/index.ts",
     "dev:simple:check":
@@ -20,7 +23,7 @@
     "format": "prettier --write 'packages/**/*.{ts,json}'",
     "precommit": "lint-staged",
     "nuke": "yarn nuke:dist",
-    "nuke:dist": "rimraf 'packages/*/dist'"
+    "nuke:dist": "rimraf 'dist'"
   },
   "prettier": {
     "semi": false,
@@ -62,6 +65,7 @@
     "usePathForSuiteName": "true"
   },
   "devDependencies": {
+    "fs-extra": "^5.0.0",
     "husky": "^0.14.3",
     "jest": "^22.4.2",
     "jest-junit": "^3.6.0",
