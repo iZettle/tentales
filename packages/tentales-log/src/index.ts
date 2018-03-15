@@ -1,7 +1,5 @@
-// tslint:disable-next-line
-/// <reference path="./types/npmlog.d.ts" />
-
 import { curryN } from "ramda"
+// @ts-ignore Npm log does not have typings, so import as any
 import log from "npmlog"
 
 log.level = process.env.LOG_LEVEL || "info"
