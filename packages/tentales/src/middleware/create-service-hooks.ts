@@ -27,7 +27,10 @@ export function createServiceHooks(serviceMethods: ServiceCaller[]): Hook[] {
       const hookName = `${serviceMethod.name}Service`
       const displayName = `${uppercaseFirst(serviceMethod.name)} Service`
 
-      const service = SERVICE_MODULES[serviceName](serviceMethod.config, {
+      const serviceHandler =
+        serviceMethod.config.handler || SERVICE_MODULES[serviceName]
+
+      const service = serviceHandler(serviceMethod.config, {
         services: convertServiceMethodsToServices(serviceMethods),
         log: createLog(displayName),
       })
