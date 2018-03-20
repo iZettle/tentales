@@ -27,6 +27,7 @@ declare module "tentales" {
   export interface ServiceConfig {
     host: string
     path: string
+    handler?: ServiceFactory
   }
 
   export interface ServiceCaller {
