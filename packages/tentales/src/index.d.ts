@@ -28,6 +28,7 @@ declare module "tentales" {
     host: string
     path: string
     handler?: ServiceFactory
+    options?: object
   }
 
   export interface ServiceCaller {
