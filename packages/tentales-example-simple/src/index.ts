@@ -1,25 +1,17 @@
 // TODO: Remove eslint-disable once import of sibling dependency is figured out
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { tenTales, Middleware } from "tentales"
+import serve from "tentales-static"
 
-import * as path from "path"
-
-const sampleMiddleware: Middleware = ({ log }) =>
-  async function actualSampleMiddleware(ctx, next) {
-    log.verbose("Sample middleware - Before")
-    await next()
-    log.verbose("Sample middleware - After")
-  }
-
-sampleMiddleware.displayName = "Sample Middleware"
+import { join, resolve } from "path"
 
 tenTales({
-  port: 4000,
+  port: parseInt(process.env.PORT as string, 10) || 4000,
   public: true,
   auth: {
     serverSecret: process.env.SERVER_SECRET,
   },
-  reactComponentsDirectory: path.join(__dirname, "components"),
+  reactComponentsDirectory: join(__dirname, "components"),
   services: {
     renderer: {
       host: "this",
@@ -37,7 +29,9 @@ tenTales({
   },
   hooks: {
     middlewares: {
-      // beforeRenderMiddleware: [sampleMiddleware],
+      beforeRenderMiddleware: [
+        serve({ root: resolve(__dirname, "../public") }),
+      ],
       // rendererService: [sampleMiddleware],
     },
   },
