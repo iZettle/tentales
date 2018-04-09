@@ -1,4 +1,5 @@
 declare module "tentales" {
+  import { StaticMiddlewareParams, StaticMiddleware } from "tentales-static"
   import { Log } from "tentales-log"
   import * as Koa from "koa"
 

@@ -1,0 +1,10 @@
+{
+  "name": "tentales-static",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@types/koa-static": "^4.0.0",
+    "koa-static": "^4.0.2"
+  }
+}
